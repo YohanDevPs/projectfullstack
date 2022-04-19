@@ -1,5 +1,6 @@
 package com.aegro.api.controller;
 
+
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -67,4 +68,4 @@ public class PlotController {
 			return Void.TYPE;	
 		}).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Talhao nao encontrada."));
 	}
-}
+

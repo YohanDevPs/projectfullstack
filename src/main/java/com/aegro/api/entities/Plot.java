@@ -1,5 +1,6 @@
 package com.aegro.api.entities;
 
+
 import java.io.Serializable;
 import java.util.List;
 
