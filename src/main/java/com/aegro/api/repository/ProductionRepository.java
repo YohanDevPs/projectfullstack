@@ -1,5 +1,9 @@
 package com.aegro.api.repository;
 
-public interface ProductionRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aegro.api.entities.Production;
+
+public interface ProductionRepository extends JpaRepository<Production, Long>{
 
 }
