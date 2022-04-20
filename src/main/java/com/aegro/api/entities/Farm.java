@@ -55,6 +55,4 @@ public class Farm implements Serializable {
 	public void setNameFarm(String nameFarm) {
 		this.nameFarm = nameFarm;
 	}
-
-	
-	}
+}
