@@ -21,14 +21,13 @@ public class Production implements Serializable{
 	private short production;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "plot_id")
+	@JoinColumn(nullable = false, name = "fk_plot")
 	private Plot plot;
 	
 	public Production() {
 	}
 	
-	public Production(Long idProduction, short production, Plot plot) {
-		this.idProduction = idProduction;
+	public Production(short production, Plot plot) {
 		this.production = production;
 		this.plot = plot;
 	}
@@ -56,10 +55,4 @@ public class Production implements Serializable{
 	public void setPlot(Plot plot) {
 		this.plot = plot;
 	}
-
-	@Override
-	public String toString() {
-		return "Production [idProduction=" + idProduction + ", production=" + production + ", plot=" + plot + "]";
-	}
-
 }
