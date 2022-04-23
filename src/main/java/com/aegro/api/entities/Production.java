@@ -1,7 +1,3 @@
-package com.aegro.api.entities;
-
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +14,7 @@ public class Production implements Serializable{
 	private Long idProduction;
 	
 	@Column(nullable = false)
-	private short production;
+	private Short production;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false, name = "fk_plot")
@@ -27,7 +23,7 @@ public class Production implements Serializable{
 	public Production() {
 	}
 	
-	public Production(short production, Plot plot) {
+	public Production(Short production, Plot plot) {
 		this.production = production;
 		this.plot = plot;
 	}
