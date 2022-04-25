@@ -1,7 +1,3 @@
-package com.aegro.api.entities;
-
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,17 +14,16 @@ public class Production implements Serializable{
 	private Long idProduction;
 	
 	@Column(nullable = false)
-	private short production;
+	private Short production;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "plot_id")
+	@JoinColumn(nullable = false, name = "fk_plot")
 	private Plot plot;
 	
 	public Production() {
 	}
 	
-	public Production(Long idProduction, short production, Plot plot) {
-		this.idProduction = idProduction;
+	public Production(Short production, Plot plot) {
 		this.production = production;
 		this.plot = plot;
 	}
@@ -56,10 +51,4 @@ public class Production implements Serializable{
 	public void setPlot(Plot plot) {
 		this.plot = plot;
 	}
-
-	@Override
-	public String toString() {
-		return "Production [idProduction=" + idProduction + ", production=" + production + ", plot=" + plot + "]";
-	}
-
 }

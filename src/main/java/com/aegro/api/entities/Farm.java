@@ -1,6 +1,7 @@
 package com.aegro.api.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,45 +15,42 @@ import javax.persistence.OneToMany;
 public class Farm implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idFarm;
 
-	@Column(nullable = false, unique = true)
+	@Column(unique = true)
 	private String nameFarm;
-	
-	@Column
-	private short productionFarm;
+
+
+	@OneToMany(mappedBy = "farm")
+	private List<Plot> plots = new ArrayList<>();
 
 	public Farm() {
 	}
-	
-	public Farm(Long id, String nameFarm, Short productionFarm) {
-		this.id = id;
+
+	public Farm(String nameFarm, List<Plot> plots) {
 		this.nameFarm = nameFarm;
-		this.productionFarm = productionFarm;
-	}
-	
-	public short getProductionFarm() {
-		return productionFarm;
+		this.plots = plots;
 	}
 
-	public void setProductionFarm(short productionFarm) {
-		this.productionFarm = productionFarm;
+	public Long getIdFarm() {
+		return idFarm;
 	}
 
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	public String getNameFarm() {
 		return nameFarm;
 	}
-	
+
 	public void setNameFarm(String nameFarm) {
 		this.nameFarm = nameFarm;
 	}
+
+	public List<Plot> getPlots() {
+		return plots;
+	}
+
+	public void setPlots(List<Plot> plots) {
+		this.plots = plots;
+	}
+	
 }

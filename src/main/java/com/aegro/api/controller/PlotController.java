@@ -68,4 +68,4 @@ public class PlotController {
 			return Void.TYPE;	
 		}).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Talhao nao encontrada."));
 	}
-
+}

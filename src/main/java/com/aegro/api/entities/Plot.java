@@ -2,6 +2,7 @@ package com.aegro.api.entities;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,37 +14,44 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ForeignKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 public class Plot implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPlot;
-
+	
 	@Column(nullable = false)
 	private String namePlot;
 	
 	@Column(nullable = false)
 	private Short plotAreaInHectare;
-
-	public Plot() {
-	}
 	
-	public Plot(Long idPlot, String namePlot, Short plotAreaInHectare) {
-		this.idPlot = idPlot;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(nullable = false, name = "fk_farm")
+	private Farm farm;
+	
+	
+	@OneToMany(mappedBy = "plot")
+	private List<Production> produtions = new ArrayList<>();
+
+	public Plot() {	
+		
+	}
+
+	public Plot(String namePlot, Short plotAreaInHectare, Farm farm, List<Production> produtions) {
 		this.namePlot = namePlot;
 		this.plotAreaInHectare = plotAreaInHectare;
+		this.farm = farm;
+		this.produtions = produtions;
 	}
 
 	public Long getIdPlot() {
 		return idPlot;
-	}
-
-	public void setIdPlot(Long idPlot) {
-		this.idPlot = idPlot;
 	}
 
 	public String getNamePlot() {
@@ -60,6 +68,22 @@ public class Plot implements Serializable{
 
 	public void setPlotAreaInHectare(Short plotAreaInHectare) {
 		this.plotAreaInHectare = plotAreaInHectare;
+	}
+
+	public Farm getFarm() {
+		return farm;
+	}
+
+	public void setFarm(Farm farm) {
+		this.farm = farm;
+	}
+
+	public List<Production> getProdutions() {
+		return produtions;
+	}
+
+	public void setProdutions(List<Production> produtions) {
+		this.produtions = produtions;
 	}
 	
 }
