@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Production implements Serializable{
 	
@@ -18,26 +20,27 @@ public class Production implements Serializable{
 	private Long idProduction;
 	
 	@Column(nullable = false)
-	private short production;
+	private Short production;
 	
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "fk_plot")
+	@JoinColumn(name = "plotId")
 	private Plot plot;
 	
 	public Production() {
 	}
-	
-	public Production(short production, Plot plot) {
+
+	public Production(Short production) {
 		this.production = production;
-		this.plot = plot;
 	}
+
+	public void setProduction(Short production) {
+		this.production = production;
+	}
+
 
 	public Long getIdProduction() {
 		return idProduction;
-	}
-
-	public void setIdProduction(Long idProduction) {
-		this.idProduction = idProduction;
 	}
 
 	public short getProduction() {
@@ -55,4 +58,5 @@ public class Production implements Serializable{
 	public void setPlot(Plot plot) {
 		this.plot = plot;
 	}
+
 }
