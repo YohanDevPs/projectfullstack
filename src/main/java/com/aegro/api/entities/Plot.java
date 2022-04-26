@@ -19,7 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Plot implements Serializable{
-
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPlot;
@@ -32,22 +33,18 @@ public class Plot implements Serializable{
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(nullable = false, name = "fk_farm")
+	@JoinColumn(name = "farm_id")
 	private Farm farm;
-	
 	
 	@OneToMany(mappedBy = "plot")
 	private List<Production> produtions = new ArrayList<>();
 
-	public Plot() {	
-		
+	public Plot() {
 	}
 
-	public Plot(String namePlot, Short plotAreaInHectare, Farm farm, List<Production> produtions) {
+	public Plot(String namePlot, Short plotAreaInHectare) {
 		this.namePlot = namePlot;
 		this.plotAreaInHectare = plotAreaInHectare;
-		this.farm = farm;
-		this.produtions = produtions;
 	}
 
 	public Long getIdPlot() {
@@ -85,5 +82,5 @@ public class Plot implements Serializable{
 	public void setProdutions(List<Production> produtions) {
 		this.produtions = produtions;
 	}
-	
+
 }

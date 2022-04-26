@@ -53,7 +53,7 @@ public class FarmController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeFarmById(@PathVariable("id") Long id) {
 		farmService.getFarmById(id).map(farm -> {
-			farmService.removeFarmById(farm.getIdFarm());
+			farmService.removeFarmById(farm.getId());
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
 	}

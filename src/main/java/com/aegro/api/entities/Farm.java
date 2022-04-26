@@ -16,25 +16,23 @@ public class Farm implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idFarm;
+	private Long id;
 
 	@Column(unique = true)
 	private String nameFarm;
 
-
 	@OneToMany(mappedBy = "farm")
 	private List<Plot> plots = new ArrayList<>();
-
+	
 	public Farm() {
 	}
-
-	public Farm(String nameFarm, List<Plot> plots) {
+	
+	public Farm(String nameFarm) {
 		this.nameFarm = nameFarm;
-		this.plots = plots;
 	}
 
-	public Long getIdFarm() {
-		return idFarm;
+	public Long getId() {
+		return id;
 	}
 
 	public String getNameFarm() {
@@ -52,5 +50,5 @@ public class Farm implements Serializable {
 	public void setPlots(List<Plot> plots) {
 		this.plots = plots;
 	}
-	
+
 }
