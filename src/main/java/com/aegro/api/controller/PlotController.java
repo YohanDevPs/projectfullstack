@@ -21,7 +21,7 @@ import com.aegro.api.entities.Plot;
 import com.aegro.api.service.PlotService;
 
 @RestController
-@RequestMapping("/plot")
+@RequestMapping("v1/plot")
 public class PlotController {
 	
 	@Autowired

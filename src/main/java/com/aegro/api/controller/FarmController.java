@@ -20,7 +20,7 @@ import com.aegro.api.entities.Farm;
 import com.aegro.api.service.FarmService;
 
 @RestController
-@RequestMapping("/farm")
+@RequestMapping("v1/farm")
 public class FarmController {
 
 	

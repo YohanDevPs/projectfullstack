@@ -32,6 +32,7 @@ public class ProductionService {
 		productionRepository.deleteById(id);	
 	}
 	
-	public void productionPerFarm(List<Production> productionFarm, Farm farm) {
+	public Short totalProductionPerPlot (Long idPlot) {
+		return productionRepository.totalProductionByPlot(idPlot);
 	}
 }
