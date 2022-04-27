@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class Plot implements Serializable{
 	@JoinColumn(name = "farm_id")
 	private Farm farm;
 	
-	@OneToMany(mappedBy = "plot")
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="plot", orphanRemoval=true)
 	private List<Production> produtions = new ArrayList<>();
 
 	public Plot() {
@@ -77,9 +78,4 @@ public class Plot implements Serializable{
 	public List<Production> getProdutions() {
 		return produtions;
 	}
-
-	public void setProdutions(List<Production> produtions) {
-		this.produtions = produtions;
-	}
-
 }

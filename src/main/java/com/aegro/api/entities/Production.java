@@ -16,7 +16,7 @@ public class Production implements Serializable{
 	private Long idProduction;
 	
 	@Column(nullable = false)
-	private Short production;
+	private Integer production;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -26,25 +26,15 @@ public class Production implements Serializable{
 	public Production() {
 	}
 
-	public Production(Short production, Plot plot) {
-
+	public Production(Integer production) {
 		this.production = production;
 	}
 
-	public void setProduction(Short production) {
-		this.production = production;
-	}
-
-
-	public Long getIdProduction() {
-		return idProduction;
-	}
-
-	public short getProduction() {
+	public Integer getProduction() {
 		return production;
 	}
 
-	public void setProduction(short production) {
+	public void setProduction(Integer production) {
 		this.production = production;
 	}
 
@@ -56,4 +46,8 @@ public class Production implements Serializable{
 		this.plot = plot;
 	}
 
+	public Long getIdProduction() {
+		return idProduction;
+	}
+  
 }
