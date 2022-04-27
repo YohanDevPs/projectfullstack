@@ -8,14 +8,14 @@ import com.aegro.api.entities.Production;
 
 public interface ProductionService {
 
-	public Production saveProduction(Production production);
+	Production saveProduction(Production production);
 
-	public List<Production> productionList();
+	List<Production> productionList();
 	
-	public Optional<Production> getProductionById(Long id);
+	Optional<Production> getProductionById(Long id);
 	
-	public void removeProductionById(Long id);
+	void removeProductionById(Long id);
 	
-	public Integer totalProductionPerPlot (Long idPlot);
+	Integer totalProductionPerPlot (Long idPlot);
 }
 

@@ -7,12 +7,12 @@ import com.aegro.api.entities.Plot;
 
 public interface PlotService {
 
-	public Plot savePlot(Plot plot);
+	Plot savePlot(Plot plot);
 	
-	public List<Plot> plotList();
+	List<Plot> plotList();
 	
-	public Optional<Plot> getPlotById(Long id);
+	Optional<Plot> getPlotById(Long id);
 	
-	public void removePlotById(Long id);
+	void removePlotById(Long id);
 
 }

@@ -7,12 +7,12 @@ import com.aegro.api.entities.Farm;
 
 public interface FarmService {
 	
-	public Farm saveFarm(Farm farm);
+	Farm saveFarm(Farm farm);
 	
-	public List<Farm> farmList();
+	List<Farm> farmList();
 	
-	public Optional<Farm> getFarmById(Long id);
+	Optional<Farm> getFarmById(Long id);
 	
-	public void removeFarmById(Long id);
+	void removeFarmById(Long id);
 	
 }
