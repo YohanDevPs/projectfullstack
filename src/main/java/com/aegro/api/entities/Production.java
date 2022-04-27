@@ -1,3 +1,7 @@
+package com.aegro.api.entities;
+
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,5 +53,4 @@ public class Production implements Serializable{
 	public Long getIdProduction() {
 		return idProduction;
 	}
-  
 }

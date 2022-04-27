@@ -5,22 +5,10 @@ plugins {
 	
 	id("com.github.ryarnyah.querydsl") version "0.0.3"
 }
-tasks {
-    queryDslMetadataExport {
-        jdbcDriver = "org.h2.Driver"
-        jdbcUser = "sa"
-        jdbcPassword = ""
-        jdbcUrl = "jdbc:h2:mem:testdb"
-        packageName = "com.example.querydsl"
-
-        exportBeans = true
-        exportTables = true
-    }
-}
 
 group = 'com.aegro'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '16'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
@@ -33,8 +21,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.modelmapper:modelmapper:3.1.0'
-	testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
-	testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
+
 }
 
 tasks.named('test') {
