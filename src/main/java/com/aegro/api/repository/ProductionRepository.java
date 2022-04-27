@@ -10,6 +10,6 @@ public interface ProductionRepository extends JpaRepository<Production, Long>{
 	@Query("select SUM(production) "
 			+ "FROM Production "
 			+ "WHERE PLOT_ID = ?1")
-	Short totalProductionByPlot(Long id);
+	Integer totalProductionByPlot(Long id);
 	
 }

@@ -42,7 +42,7 @@ public class ProductionController {
 	}
 	
 	@GetMapping("/{id}/productionbyplot")
-	public Short somaProducao(@PathVariable Long id) {
+	public Integer somaProducao(@PathVariable Long id) {
 	    return productionService.totalProductionPerPlot(id);
 	}
 

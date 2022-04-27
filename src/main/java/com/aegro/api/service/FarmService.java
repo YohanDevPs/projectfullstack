@@ -3,31 +3,16 @@ package com.aegro.api.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.aegro.api.entities.Farm;
-import com.aegro.api.repository.FarmRepository;
 
-@Service
-public class FarmService {
-
-	@Autowired
-	private FarmRepository farmRepository;
+public interface FarmService {
 	
-	public Farm saveFarm(Farm farm) {
-		return farmRepository.save(farm); 
-	}
-
-	public List<Farm> farmList() {
-		return farmRepository.findAll();
-	}
+	Farm saveFarm(Farm farm);
 	
-	public Optional<Farm> getFarmById(Long id){
-		return farmRepository.findById(id);
-	}
+	List<Farm> farmList();
 	
-	public void removeFarmById(Long id) {
-		farmRepository.deleteById(id);	
-	}
+	Optional<Farm> getFarmById(Long id);
+	
+	void removeFarmById(Long id);
+	
 }
