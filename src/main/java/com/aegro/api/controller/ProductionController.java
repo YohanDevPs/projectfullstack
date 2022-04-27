@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ import com.aegro.api.entities.Production;
 import com.aegro.api.service.ProductionService;
 
 @RestController
-@RequestMapping("/production")
+@RequestMapping("v1/production")
 public class ProductionController {
 	
 	@Autowired
@@ -38,6 +39,11 @@ public class ProductionController {
 	@ResponseStatus(HttpStatus.OK)
 	private List<Production> listProduction(){
 		return productionService.productionList();
+	}
+	
+	@GetMapping("/{id}/productionbyplot")
+	public Short somaProducao(@PathVariable Long id) {
+	    return productionService.totalProductionPerPlot(id);
 	}
 
 	@GetMapping("/{id}")
@@ -58,7 +64,7 @@ public class ProductionController {
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateProduction(@PathVariable("id") Long id, Production production) {
+	public void updateProduction(@PathVariable("id") Long id,@RequestBody Production production) {
 		productionService.getProductionById(id).map(baseProduction ->{
 			modelMapper.map(production, baseProduction);
 			productionService.saveProduction(baseProduction);

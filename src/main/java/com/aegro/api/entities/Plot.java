@@ -20,8 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Plot implements Serializable{
 	
-	
-	@Id
+		@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPlot;
 	
