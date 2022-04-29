@@ -1,10 +1,12 @@
 package com.aegro.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,11 +42,11 @@ public class ProductionController {
 	private List<Production> listProduction(){
 		return productionService.productionList();
 	}
-	
-	@GetMapping("/{id}/productionbyplot")
-	public Integer somaProducao(@PathVariable Long id) {
-	    return productionService.totalProductionPerPlot(id);
+	@GetMapping("/{id}/productionByFarm")
+	public Integer productionByFarm(@PathVariable Long id) {
+	    return productionService.productionByFarm(id);
 	}
+
 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
@@ -64,9 +66,9 @@ public class ProductionController {
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateProduction(@PathVariable("id") Long id,@RequestBody Production production) {
+	public void updateProduction(@PathVariable("id") Long id,@RequestBody Production amount) {
 		productionService.getProductionById(id).map(baseProduction ->{
-			modelMapper.map(production, baseProduction);
+			modelMapper.map(amount, baseProduction);
 			productionService.saveProduction(baseProduction);
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producao nao encontrada."));

@@ -22,7 +22,7 @@ public class Production implements Serializable{
 	private Long idProduction;
 	
 	@Column(nullable = false)
-	private Integer production;
+	private Integer amount;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -32,16 +32,20 @@ public class Production implements Serializable{
 	public Production() {
 	}
 
-	public Production(Integer production) {
-		this.production = production;
+	public Production(Integer amount) {
+		this.amount = amount;
 	}
 
-	public Integer getProduction() {
-		return production;
+	public Long getIdProduction() {
+		return idProduction;
 	}
 
-	public void setProduction(Integer production) {
-		this.production = production;
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 
 	public Plot getPlot() {
@@ -52,7 +56,4 @@ public class Production implements Serializable{
 		this.plot = plot;
 	}
 
-	public Long getIdProduction() {
-		return idProduction;
-	}
 }

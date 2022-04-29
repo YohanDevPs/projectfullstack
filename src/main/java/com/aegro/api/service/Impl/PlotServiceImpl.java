@@ -1,6 +1,5 @@
 package com.aegro.api.service.Impl;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -12,29 +11,34 @@ import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.service.PlotService;
 
 @Service
-public class PlotServiceImpl implements PlotService{
+public class PlotServiceImpl implements PlotService {
 
 	@Autowired
 	private PlotRepository plotRepository;
 
 	@Override
 	public Plot savePlot(Plot plot) {
-		return plotRepository.save(plot); 
+		return plotRepository.save(plot);
 	}
 
 	@Override
 	public List<Plot> plotList() {
 		return plotRepository.findAll();
 	}
-	
+
 	@Override
-	public Optional<Plot> getPlotById(Long id){
+	public Optional<Plot> getPlotById(Long id) {
 		return plotRepository.findById(id);
 	}
-	
+
 	@Override
 	public void removePlotById(Long id) {
-		plotRepository.deleteById(id);	
+		plotRepository.deleteById(id);
 	}
-	
+
+	@Override
+	public List<Plot> allPlotsByFarmId(Long idFarm) {
+		return null;
+	}
+
 }

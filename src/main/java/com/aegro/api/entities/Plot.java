@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,9 +23,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Plot implements Serializable{
 	
-		private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-		@Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPlot;
 	
@@ -40,6 +42,10 @@ public class Plot implements Serializable{
 	
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="plot", orphanRemoval=true)
 	private List<Production> produtions = new ArrayList<>();
+	
+	@OneToOne(mappedBy = "plot", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+	private ProductivityByPlot productivity;
 
 	public Plot() {
 	}

@@ -3,12 +3,14 @@ package com.aegro.api.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.aegro.api.entities.Plot;
 import com.aegro.api.entities.Production;
+import com.aegro.api.entities.ProductivityByPlot;
 
 
 public interface ProductionService {
 
-	Production saveProduction(Production production);
+	Production saveProduction(Production amount);
 
 	List<Production> productionList();
 	
@@ -16,6 +18,9 @@ public interface ProductionService {
 	
 	void removeProductionById(Long id);
 	
-	Integer totalProductionPerPlot (Long idPlot);
+	Integer productionByFarm(Long idFarm);
+
+	List<Plot> allPlotsByFarmId(Long idFarm);
+	
 }
 

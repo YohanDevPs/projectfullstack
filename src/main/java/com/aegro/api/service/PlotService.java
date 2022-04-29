@@ -14,5 +14,7 @@ public interface PlotService {
 	Optional<Plot> getPlotById(Long id);
 	
 	void removePlotById(Long id);
+	
+	List<Plot> allPlotsByFarmId(Long idFarm);
 
 }

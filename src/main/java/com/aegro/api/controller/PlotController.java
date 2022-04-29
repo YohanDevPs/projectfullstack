@@ -30,6 +30,14 @@ public class PlotController {
 	@Autowired
 	private PlotService plotService;
 		
+	
+	@GetMapping("/{id}/allplotsbyidfarm")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Plot> plotListByFarmId(@PathVariable("id") Long id) {
+		return plotService.allPlotsByFarmId(id);
+	}
+	
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Plot savePlot(@RequestBody Plot plot) {
