@@ -6,10 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Production;
 import com.aegro.api.repository.ProductionRepository;
 import com.aegro.api.service.ProductionService;
+
+/**
+ * @author Yohan Silva
+ */
 
 @Service
 public class ProductionServiceImpl implements ProductionService {
@@ -38,7 +41,9 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 	
 	@Override
-	public Integer totalProductionPerPlot (Long idPlot) {
-		return productionRepository.totalProductionByPlot(idPlot);
+	public Production productionByIdPlot(Long id) {		
+		Integer productivity = productionRepository.totalProductionByPlot(id);
+		Production productivityPlot = new Production(productivity);
+		return productivityPlot;
 	}
 }

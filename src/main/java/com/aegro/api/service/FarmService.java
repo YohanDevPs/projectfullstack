@@ -5,6 +5,10 @@ import java.util.Optional;
 
 import com.aegro.api.entities.Farm;
 
+/**
+ * @author Yohan Silva
+ */
+
 public interface FarmService {
 	
 	Farm saveFarm(Farm farm);

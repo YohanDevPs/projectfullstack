@@ -12,6 +12,10 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Yohan Silva
+ */
+
 @Entity
 public class Production implements Serializable{
 	

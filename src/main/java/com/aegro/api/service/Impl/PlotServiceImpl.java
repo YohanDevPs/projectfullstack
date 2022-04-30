@@ -11,6 +11,10 @@ import com.aegro.api.entities.Plot;
 import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.service.PlotService;
 
+/**
+ * @author Yohan Silva
+ */
+
 @Service
 public class PlotServiceImpl implements PlotService{
 

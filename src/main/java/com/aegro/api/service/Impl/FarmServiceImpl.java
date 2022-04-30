@@ -10,6 +10,10 @@ import com.aegro.api.entities.Farm;
 import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.service.FarmService;
 
+/**
+ * @author Yohan Silva
+ */
+
 @Service
 public class FarmServiceImpl implements FarmService {
 
