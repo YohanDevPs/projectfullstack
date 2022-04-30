@@ -19,6 +19,10 @@ import org.springframework.web.server.ResponseStatusException;
 import com.aegro.api.entities.Farm;
 import com.aegro.api.service.FarmService;
 
+/**
+ * @author Yohan Silva
+ */
+
 @RestController
 @RequestMapping("v1/farm")
 public class FarmController {

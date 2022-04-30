@@ -17,11 +17,14 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Yohan Silva
+ */
 
 @Entity
 public class Plot implements Serializable{
 	
-		private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 		@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

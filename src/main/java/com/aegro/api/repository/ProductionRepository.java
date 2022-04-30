@@ -5,6 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.aegro.api.entities.Production;
 
+/**
+ * @author Yohan Silva
+ */
+
 public interface ProductionRepository extends JpaRepository<Production, Long>{
 
 	@Query("select SUM(production) "

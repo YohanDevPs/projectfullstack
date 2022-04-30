@@ -19,6 +19,10 @@ import org.springframework.web.server.ResponseStatusException;
 import com.aegro.api.entities.Production;
 import com.aegro.api.service.ProductionService;
 
+/**
+ * @author Yohan Silva
+ */
+
 @RestController
 @RequestMapping("v1/production")
 public class ProductionController {
@@ -39,11 +43,6 @@ public class ProductionController {
 	@ResponseStatus(HttpStatus.OK)
 	private List<Production> listProduction(){
 		return productionService.productionList();
-	}
-	
-	@GetMapping("/{id}/productionbyplot")
-	public Integer somaProducao(@PathVariable Long id) {
-	    return productionService.totalProductionPerPlot(id);
 	}
 
 	@GetMapping("/{id}")

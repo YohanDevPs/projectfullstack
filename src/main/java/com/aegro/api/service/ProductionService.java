@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import com.aegro.api.entities.Production;
 
+/**
+ * @author Yohan Silva
+ */
 
 public interface ProductionService {
 
@@ -16,6 +19,6 @@ public interface ProductionService {
 	
 	void removeProductionById(Long id);
 	
-	Integer totalProductionPerPlot (Long idPlot);
+	Production productionByIdPlot(Long id);
 }
 

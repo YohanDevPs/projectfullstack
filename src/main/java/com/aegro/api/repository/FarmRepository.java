@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.aegro.api.entities.Farm;
 
+/**
+ * @author Yohan Silva
+ */
+
 @Repository
 public interface FarmRepository extends JpaRepository<Farm, Long>{
 		

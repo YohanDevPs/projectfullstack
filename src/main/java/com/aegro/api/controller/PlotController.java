@@ -18,7 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.aegro.api.entities.Plot;
+import com.aegro.api.entities.Production;
 import com.aegro.api.service.PlotService;
+import com.aegro.api.service.ProductionService;
+
+/**
+ * @author Yohan Silva
+ */
 
 @RestController
 @RequestMapping("v1/plot")
@@ -29,13 +35,22 @@ public class PlotController {
 	
 	@Autowired
 	private PlotService plotService;
+	
+	@Autowired
+	private ProductionService productionService;
 		
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Plot savePlot(@RequestBody Plot plot) {
 		return plotService.savePlot(plot);
 	}
-
+	
+	@GetMapping("/{id}/productivityByPlot")
+	@ResponseStatus(HttpStatus.OK)
+	public Production somaProducao(@PathVariable Long id) {	
+	return productionService.productionByIdPlot(id);
+	}
+	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Plot> plotList() {
