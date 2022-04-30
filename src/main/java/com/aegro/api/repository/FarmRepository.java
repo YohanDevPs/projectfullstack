@@ -7,5 +7,6 @@ import com.aegro.api.entities.Farm;
 
 @Repository
 public interface FarmRepository extends JpaRepository<Farm, Long>{
-		
+	
+	
 }

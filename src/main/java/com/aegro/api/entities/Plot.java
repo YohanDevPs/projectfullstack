@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -34,19 +35,15 @@ public class Plot implements Serializable{
 	
 	@Column(nullable = false)
 	private Short plotAreaInHectare;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "farm_id")
 	private Farm farm;
 	
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="plot", orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.MERGE, mappedBy="plot", orphanRemoval=true)
 	private List<Production> produtions = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "plot", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-	private ProductivityByPlot productivity;
-
 	public Plot() {
 	}
 

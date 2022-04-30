@@ -1,12 +1,10 @@
 package com.aegro.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,11 +40,6 @@ public class ProductionController {
 	private List<Production> listProduction(){
 		return productionService.productionList();
 	}
-	@GetMapping("/{id}/productionByFarm")
-	public Integer productionByFarm(@PathVariable Long id) {
-	    return productionService.productionByFarm(id);
-	}
-
 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)

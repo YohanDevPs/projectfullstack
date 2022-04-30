@@ -15,7 +15,7 @@ public class PlotServiceImpl implements PlotService {
 
 	@Autowired
 	private PlotRepository plotRepository;
-
+	
 	@Override
 	public Plot savePlot(Plot plot) {
 		return plotRepository.save(plot);
@@ -34,11 +34,6 @@ public class PlotServiceImpl implements PlotService {
 	@Override
 	public void removePlotById(Long id) {
 		plotRepository.deleteById(id);
-	}
-
-	@Override
-	public List<Plot> allPlotsByFarmId(Long idFarm) {
-		return null;
 	}
 
 }

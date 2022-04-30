@@ -15,27 +15,28 @@ class ProductionRepositoryTest {
 
 	public class FarmTest {
 
-		@Autowired
-		private ProductionRepository productionRepository;
-
-//	@Test
-//	public void shouldLoadTheProductionById() {
-//		Long farmTest = (long) 1;
-//		Optional<Farm> farm = farmRepository.findById(farmTest);
+//		@Autowired
+//		private ProductionRepository productionRepository;
 //
-//		Assert.assertNotNull(farm);
-//		Assert.assertEquals(farmTest, farm.get().getId());
+////	@Test
+////	public void shouldLoadTheProductionById() {
+////		Long farmTest = (long) 1;
+////		Optional<Farm> farm = farmRepository.findById(farmTest);
+////
+////		Assert.assertNotNull(farm);
+////		Assert.assertEquals(farmTest, farm.get().getId());
+////	}
+//
+////		@Test
+////		public void shouldLoadTheProductionById() {
+////			Long productionPlot = 1l;
+////			Integer prodcutionByPlotId1 = 1075;
+////			Production production = productionRepository.totalProductionByPlot(productionPlot);
+////
+////			Assert.assertNotNull(productionPlot);
+////			Assert.assertEquals(prodcutionByPlotId1, production);
+////		}
+//
 //	}
-
-		@Test
-		public void shouldLoadTheProductionById() {
-			Long productionPlot = 1l;
-			Integer prodcutionByPlotId1 = 1075;
-			Production production = productionRepository.totalProductionByPlot(productionPlot);
-
-			Assert.assertNotNull(productionPlot);
-			Assert.assertEquals(prodcutionByPlotId1, production);
-		}
-
-	}
+}
 }

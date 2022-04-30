@@ -2,6 +2,7 @@ package com.aegro.api.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,10 +26,10 @@ public class Production implements Serializable{
 	private Integer amount;
 	
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "plotId")
 	private Plot plot;
-	
+
 	public Production() {
 	}
 
@@ -55,5 +56,4 @@ public class Production implements Serializable{
 	public void setPlot(Plot plot) {
 		this.plot = plot;
 	}
-
 }

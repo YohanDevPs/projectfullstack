@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.aegro.api.entities.Plot;
+import com.aegro.api.entities.Production;
 import com.aegro.api.service.PlotService;
+import com.aegro.api.service.ProductionService;
 
 @RestController
 @RequestMapping("v1/plot")
@@ -28,15 +30,10 @@ public class PlotController {
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private PlotService plotService;
+	private ProductionService productionService;
 		
-	
-	@GetMapping("/{id}/allplotsbyidfarm")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Plot> plotListByFarmId(@PathVariable("id") Long id) {
-		return plotService.allPlotsByFarmId(id);
-	}
-	
+	@Autowired
+	private PlotService plotService;
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -48,6 +45,11 @@ public class PlotController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<Plot> plotList() {
 		return plotService.plotList();
+	}
+	@GetMapping("/{id}/productivityByPlot")
+	@ResponseStatus(HttpStatus.OK)
+	public Production somaProducao(@PathVariable Long id) {	
+	return productionService.productionByIdPlot(id);
 	}
 		
 	@GetMapping("/{id}")

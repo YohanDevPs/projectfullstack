@@ -24,7 +24,7 @@ public class Farm implements Serializable {
 	@Column(unique = true)
 	private String nameFarm;
 
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="farm", orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.MERGE, mappedBy="farm", orphanRemoval=true)
 	private List<Plot> plots = new ArrayList<>();
 	
 	public Farm() {
