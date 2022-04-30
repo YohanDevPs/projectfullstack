@@ -2,6 +2,7 @@ package com.aegro.api.entities;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,11 @@ public class Plot implements Serializable{
 	@Column(nullable = false)
 	private String namePlot;
 	
+	@Column
+	private Double productiviy;
+	
 	@Column(nullable = false)
-	private Short plotAreaInHectare;
+	private Double plotAreaInHectare;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -47,7 +51,7 @@ public class Plot implements Serializable{
 	public Plot() {
 	}
 
-	public Plot(String namePlot, Short plotAreaInHectare) {
+	public Plot(String namePlot, Double plotAreaInHectare) {
 		this.namePlot = namePlot;
 		this.plotAreaInHectare = plotAreaInHectare;
 	}
@@ -64,11 +68,11 @@ public class Plot implements Serializable{
 		this.namePlot = namePlot;
 	}
 
-	public Short getPlotAreaInHectare() {
+	public Double getPlotAreaInHectare() {
 		return plotAreaInHectare;
 	}
 
-	public void setPlotAreaInHectare(Short plotAreaInHectare) {
+	public void setPlotAreaInHectare(Double plotAreaInHectare) {
 		this.plotAreaInHectare = plotAreaInHectare;
 	}
 
@@ -83,4 +87,14 @@ public class Plot implements Serializable{
 	public List<Production> getProdutions() {
 		return produtions;
 	}
+
+	public Double getProductiviy() {
+		return productiviy;
+	}
+
+	public void setProductiviy(Double productiviy) {
+		this.productiviy = productiviy;
+	}
+
+	
 }
