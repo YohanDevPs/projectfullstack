@@ -18,7 +18,5 @@ public interface ProductionService {
 	Optional<Production> getProductionById(Long id);
 	
 	void removeProductionById(Long id);
-	
-	Production productionByIdPlot(Long id);
 }
 

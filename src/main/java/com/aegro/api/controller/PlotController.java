@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.aegro.api.entities.Plot;
-import com.aegro.api.entities.Production;
 import com.aegro.api.service.PlotService;
-import com.aegro.api.service.ProductionService;
 
 /**
  * @author Yohan Silva
@@ -35,48 +33,45 @@ public class PlotController {
 	
 	@Autowired
 	private PlotService plotService;
-	
-	@Autowired
-	private ProductionService productionService;
 		
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Plot savePlot(@RequestBody Plot plot) {
 		return plotService.savePlot(plot);
 	}
-	
-	@GetMapping("/{id}/productivityByPlot")
-	@ResponseStatus(HttpStatus.OK)
-	public Production somaProducao(@PathVariable Long id) {	
-	return productionService.productionByIdPlot(id);
-	}
-	
+
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Plot> plotList() {
 		return plotService.plotList();
 	}
-		
+
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Plot getPlotById(@PathVariable("id") Long id) {
-		return plotService.getPlotById(id)
+		return plotService.getPlotByIdAndProductions(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Talhao nao encontrado."));
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removePlotById(@PathVariable("id") Long id) {
-		plotService.getPlotById(id).map(plot -> {
+		plotService.getPlotByIdAndProductions(id).map(plot -> {
 			plotService.removePlotById(plot.getIdPlot());
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Talhao nao encontrado."));
 	}
 	
+	@PutMapping("/{id}/updateproductivity")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updateProductivity(@PathVariable Long id) {	
+		plotService.updateProductivityByPlotId(id);
+	}
+
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePlot(@PathVariable("id") Long id,@RequestBody Plot plot) {
-		plotService.getPlotById(id)
+		plotService.getPlotByIdAndProductions(id)
 		.map(basePlot -> {
 			modelMapper.map(plot, basePlot);
 			plotService.savePlot(basePlot);

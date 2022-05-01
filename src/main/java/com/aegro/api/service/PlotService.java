@@ -15,8 +15,12 @@ public interface PlotService {
 	
 	List<Plot> plotList();
 	
-	Optional<Plot> getPlotById(Long id);
-	
+	Optional<Plot> getPlotByIdAndProductions(Long id);
+
 	void removePlotById(Long id);
+
+	void updateProductivityByPlotId(Long idPlot);
+
+	Double getProductivityByIdPlot(Long idPlot);
 
 }

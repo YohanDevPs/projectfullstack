@@ -40,10 +40,4 @@ public class ProductionServiceImpl implements ProductionService {
 		productionRepository.deleteById(id);	
 	}
 	
-	@Override
-	public Production productionByIdPlot(Long id) {		
-		Integer productivity = productionRepository.totalProductionByPlot(id);
-		Production productivityPlot = new Production(productivity);
-		return productivityPlot;
-	}
 }
