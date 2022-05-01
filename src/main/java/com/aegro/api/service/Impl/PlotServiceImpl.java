@@ -46,19 +46,39 @@ public class PlotServiceImpl implements PlotService{
 	}
 	
 	@Override
+	public Double getProductivityByIdPlot(Long idPlot) {
+		
+		double productivity = calculateProductivity(idPlot);
+		double formattedProductivity = limitDecimalPlace(productivity);
+		
+		return formattedProductivity;
+	}
+
+	@Override
 	public void updateProductivityByPlotId(Long idPlot) {
+		
 		double plotProductivity = getProductivityByIdPlot(idPlot);
+		
 		Plot plot = plotRepository.findById(idPlot).get();
-		plot.setProductiviy(plotProductivity);
+		
+		plot.setPlotProductivity(plotProductivity);
+		
 		this.plotRepository.save(plot);
 	}
 	
-	@Override
-	public Double getProductivityByIdPlot(Long idPlot) {
+	private double calculateProductivity(Long idPlot) {
+		
 		double productionTotal = productionRepository.totalProductionByPlot(idPlot);
 		double areaPlot = plotRepository.getById(idPlot).getPlotAreaInHectare();
 		double productivity = productionTotal/areaPlot;
+		
+		return productivity;
+	}
+	
+	private double limitDecimalPlace(double productivity) {
+		
 		double formattedProductivity = (Math.round(productivity*1000.0)/1000.0);
+		
 		return formattedProductivity;
 	}
 

@@ -24,7 +24,10 @@ public class Farm implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@Column
+	private Double farmProductivity;
+	
 	@Column(unique = true)
 	private String nameFarm;
 
@@ -53,4 +56,13 @@ public class Farm implements Serializable {
 	public List<Plot> getPlots() {
 		return plots;
 	}
+
+	public Double getFarmProductivity() {
+		return farmProductivity;
+	}
+
+	public void setFarmProductivity(Double farmProductivity) {
+		this.farmProductivity = farmProductivity;
+	}
+	
 }

@@ -35,7 +35,7 @@ public class Plot implements Serializable{
 	private String namePlot;
 	
 	@Column
-	private Double productiviy;
+	private Double plotProductivity;
 	
 	@Column(nullable = false)
 	private Double plotAreaInHectare;
@@ -88,13 +88,12 @@ public class Plot implements Serializable{
 		return produtions;
 	}
 
-	public Double getProductiviy() {
-		return productiviy;
+	public Double getPlotProductivity() {
+		return plotProductivity;
 	}
 
-	public void setProductiviy(Double productiviy) {
-		this.productiviy = productiviy;
+	public void setPlotProductivity(Double productiviy) {
+		this.plotProductivity = productiviy;
 	}
-
 	
 }

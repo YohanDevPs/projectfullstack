@@ -63,7 +63,7 @@ public class PlotController {
 	}
 	
 	@PutMapping("/{id}/updateproductivity")
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateProductivity(@PathVariable Long id) {	
 		plotService.updateProductivityByPlotId(id);
 	}

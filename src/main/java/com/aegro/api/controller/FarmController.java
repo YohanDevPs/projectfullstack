@@ -62,6 +62,12 @@ public class FarmController {
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
 	}
 	
+	@PutMapping("/{id}/updateproductivity")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updateProductivity(@PathVariable Long id) {	
+		farmService.updateProductivityFarm(id);
+	}
+	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateFarm(@PathVariable("id")Long id, @RequestBody Farm farm) {
