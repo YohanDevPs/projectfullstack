@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.aegro.api.entities.Plot;
 import com.aegro.api.entities.Production;
 import com.aegro.api.service.ProductionService;
 
@@ -33,10 +34,10 @@ public class ProductionController {
 	@Autowired
 	private ProductionService productionService;
 	
-	@PostMapping
+	@PostMapping("/{idPlot}/plot")
 	@ResponseStatus(HttpStatus.CREATED)
-	private Production saveProduction(Production production) {
-		return productionService.saveProduction(production);
+	public Production savePlotinFarm(@RequestBody Production production,@PathVariable("idPlot")  Long idPlot) {
+		return productionService.createProductionInPlotId(production, idPlot);
 	}
 	
 	@GetMapping
