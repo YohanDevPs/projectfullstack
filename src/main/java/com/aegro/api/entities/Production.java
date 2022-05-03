@@ -25,8 +25,8 @@ public class Production implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProduction;
 	
-	@Column(nullable = false)
-	private Double production;
+	@Column
+	private Double amount;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -36,16 +36,16 @@ public class Production implements Serializable{
 	public Production() {
 	}
 
-	public Production(Double production) {
-		this.production = production;
+	public Production(Double amount) {
+		this.amount = amount;
 	}
 
-	public Double getProduction() {
-		return production;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setProduction(Double production) {
-		this.production = production;
+	public void setProduction(Double amount) {
+		this.amount = amount;
 	}
 
 	public Plot getPlot() {
@@ -60,6 +60,8 @@ public class Production implements Serializable{
 		return idProduction;
 	}
 
-	public void setProduction(String productivityByPlot) {
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
+
 }

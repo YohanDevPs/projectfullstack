@@ -23,4 +23,6 @@ public interface PlotService {
 
 	Double getProductivityByIdPlot(Long idPlot);
 
+	Plot createPlotInFarmId(Plot plot, Long idFarm);
+
 }
