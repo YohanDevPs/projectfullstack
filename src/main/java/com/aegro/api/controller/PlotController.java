@@ -33,13 +33,13 @@ public class PlotController {
 	
 	@Autowired
 	private PlotService plotService;
-		
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Plot savePlot(@RequestBody Plot plot) {
-		return plotService.savePlot(plot);
-	}
 
+	@PostMapping("/{idFarm}/farm")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Plot savePlotinFarm(@RequestBody Plot plot,@PathVariable("idFarm")  Long idFarm) {
+		return plotService.createPlotInFarmId(plot, idFarm);
+	}
+	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Plot> plotList() {

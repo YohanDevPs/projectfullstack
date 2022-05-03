@@ -13,9 +13,15 @@ import com.aegro.api.entities.Production;
 @Repository
 public interface ProductionRepository extends JpaRepository<Production, Long>{
 
-	@Query("select SUM(production) "
+	@Query("select SUM(amount) "
 			+ "FROM Production "
 			+ "WHERE PLOT_ID = ?1")
 	Double totalProductionByPlot(Long id);
+	
+	
+	@Query("select  amount\n"
+			+ "	FROM Production \n"
+			+ "	WHERE ID_PRODUCTION  = 1")
+	Double getProductionByProductionId(Long idProduction);
 	
 }

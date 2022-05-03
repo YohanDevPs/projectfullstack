@@ -7,9 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
+import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.repository.ProductionRepository;
+import com.aegro.api.service.FarmService;
 import com.aegro.api.service.PlotService;
 
 /**
@@ -21,6 +24,12 @@ public class PlotServiceImpl implements PlotService{
 
 	@Autowired
 	private PlotRepository plotRepository;
+	
+	@Autowired
+	private FarmService farmService;
+	
+	@Autowired
+	private FarmRepository farmRepository;
 	
 	@Autowired
 	private ProductionRepository productionRepository;
@@ -44,6 +53,21 @@ public class PlotServiceImpl implements PlotService{
 	public void removePlotById(Long id) {
 		plotRepository.deleteById(id);	
 	}
+	
+	@Override
+	public Plot createPlotInFarmId(Plot plot, Long idFarm) {
+		
+		Farm farm = farmRepository.getById(idFarm);
+		
+		plot.setFarm(farm);
+		
+		farm.getPlots().add(plot);
+		
+		farmService.saveFarm(farm);
+		
+		return 	plotRepository.save(plot);		
+	}
+	
 	
 	@Override
 	public Double getProductivityByIdPlot(Long idPlot) {
