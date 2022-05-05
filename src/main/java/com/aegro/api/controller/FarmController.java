@@ -1,10 +1,12 @@
 package com.aegro.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,14 +51,14 @@ public class FarmController {
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Farm getFarmById(@PathVariable("id")Long id){
-		return farmService.getFarmById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
+		return farmService.getFarmByIdWithYourPlots(id)
+			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeFarmById(@PathVariable("id") Long id) {
-		farmService.getFarmById(id).map(farm -> {
+		farmService.getFarmByIdWithYourPlots(id).map(farm -> {
 			farmService.removeFarmById(farm.getId());
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
@@ -67,11 +69,11 @@ public class FarmController {
 	public void updateProductivity(@PathVariable Long id) {	
 		farmService.updateProductivityFarm(id);
 	}
-	
+
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateFarm(@PathVariable("id")Long id, @RequestBody Farm farm) {
-		farmService.getFarmById(id)
+		farmService.getFarmByIdWithYourPlots(id)
 		.map(baseFarm -> {
 			modelMapper.map(farm, baseFarm);
 			farmService.saveFarm(baseFarm);

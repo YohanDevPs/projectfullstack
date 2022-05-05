@@ -3,6 +3,8 @@ package com.aegro.api.service.Impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,10 @@ import com.aegro.api.service.FarmService;
 @Service
 public class FarmServiceImpl implements FarmService {
 
+	
 	@Autowired
 	private FarmRepository farmRepository;
-
+	
 	@Autowired
 	private ProductionRepository productionRepository;
 
@@ -40,7 +43,7 @@ public class FarmServiceImpl implements FarmService {
 	}
 
 	@Override
-	public Optional<Farm> getFarmById(Long id) {
+	public Optional<Farm> getFarmByIdWithYourPlots(Long id) {
 		return farmRepository.findById(id);
 	}
 
@@ -53,7 +56,7 @@ public class FarmServiceImpl implements FarmService {
 	public Double getTotalAreaByFarmId(Long idFarm) {
 		return plotRepository.totalAreaByFarmId(idFarm);
 	}
-
+		
 	@Override
 	public Double getProductionFarmById(Long idFarm) {
 
@@ -109,5 +112,6 @@ public class FarmServiceImpl implements FarmService {
 
 		farmRepository.save(farm);
 	}
+
 
 }
