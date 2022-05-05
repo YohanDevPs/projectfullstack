@@ -15,7 +15,7 @@ public interface FarmService {
 	
 	List<Farm> farmList();
 	
-	Optional<Farm> getFarmById(Long id);
+	Optional<Farm> getFarmByIdWithYourPlots(Long id);
 	
 	void removeFarmById(Long id);
 

@@ -45,7 +45,7 @@ public class PlotServiceImpl implements PlotService{
 	}
 	
 	@Override
-	public Optional<Plot> getPlotByIdAndProductions(Long id){
+	public Optional<Plot> getPlotByIdWithYourProductions(Long id){
 		return plotRepository.findById(id);
 	}
 	

@@ -64,5 +64,5 @@ public class Farm implements Serializable {
 	public void setFarmProductivity(Double farmProductivity) {
 		this.farmProductivity = farmProductivity;
 	}
-	
+
 }
