@@ -74,7 +74,7 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	}
 
 	
-	
+
 	private Double calculateProductivityFarm(Long idFarm) {
 
 		double c = getProductionFarmById(idFarm);

@@ -9,6 +9,4 @@ public interface ProductivityPlot {
 
 	void updateProductivityByPlotId(Long idPlot);
 	
-	Double calculatePlotProductivity(Long idPlot);
-	
 }
