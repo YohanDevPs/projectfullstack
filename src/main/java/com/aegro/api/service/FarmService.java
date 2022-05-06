@@ -19,12 +19,6 @@ public interface FarmService {
 	
 	void removeFarmById(Long id);
 
-	Double getTotalAreaByFarmId(Long idFarm);
-
-	Double getProductionFarmById(Long idFarm);
-
-	Double getFarmProductivityById(Long idFarm);
-
 	void updateProductivityFarm(Long idFarm);
-		
+
 }
