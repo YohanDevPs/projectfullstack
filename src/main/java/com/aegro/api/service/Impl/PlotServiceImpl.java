@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.aegro.api.entities.Farm;
@@ -14,6 +15,7 @@ import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.repository.ProductionRepository;
 import com.aegro.api.service.FarmService;
 import com.aegro.api.service.PlotService;
+import com.aegro.api.service.ProductivityPlot;
 
 /**
  * @author Yohan Silva
@@ -33,6 +35,9 @@ public class PlotServiceImpl implements PlotService{
 	
 	@Autowired
 	private ProductionRepository productionRepository;
+	
+	@Autowired
+	private ProductivityPlot productivity;
 
 	@Override
 	public Plot savePlot(Plot plot) {
@@ -50,7 +55,7 @@ public class PlotServiceImpl implements PlotService{
 	}
 	
 	@Override
-	public void removePlotById(Long id) {
+	public void removePlotById(Long id)throws DataAccessException {	
 		plotRepository.deleteById(id);	
 	}
 	
@@ -68,42 +73,10 @@ public class PlotServiceImpl implements PlotService{
 		return 	plotRepository.save(plot);		
 	}
 	
-	
-	@Override
-	public Double getProductivityByIdPlot(Long idPlot) {
-		
-		double productivity = calculateProductivity(idPlot);
-		double formattedProductivity = limitDecimalPlace(productivity);
-		
-		return formattedProductivity;
-	}
 
 	@Override
 	public void updateProductivityByPlotId(Long idPlot) {
-		
-		double plotProductivity = getProductivityByIdPlot(idPlot);
-		
-		Plot plot = plotRepository.findById(idPlot).get();
-		
-		plot.setPlotProductivity(plotProductivity);
-		
-		this.plotRepository.save(plot);
-	}
-	
-	private double calculateProductivity(Long idPlot) {
-		
-		double productionTotal = productionRepository.totalProductionByPlot(idPlot);
-		double areaPlot = plotRepository.getById(idPlot).getPlotAreaInHectare();
-		double productivity = productionTotal/areaPlot;
-		
-		return productivity;
-	}
-	
-	private double limitDecimalPlace(double productivity) {
-		
-		double formattedProductivity = (Math.round(productivity*1000.0)/1000.0);
-		
-		return formattedProductivity;
+		productivity.updateProductivityByPlotId(idPlot);
 	}
 
 }
