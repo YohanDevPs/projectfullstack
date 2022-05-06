@@ -18,6 +18,12 @@ de cada fazenda e de cada talhão, sendo a produtividade a quantidade de produç
 - A aplicação deve possuir um coverage maior do que 50%;
 - É importante que o código seja construído por partes e revisado por pares.
 
+### Modelo entidade de Dominio
+
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/87953006/167046355-b683f5da-e1a0-4f09-8e22-5d130fa0a33c.jpg"/>
+</div>
 
 ### Tecnologias utilizadas:
 - JDK 16;
