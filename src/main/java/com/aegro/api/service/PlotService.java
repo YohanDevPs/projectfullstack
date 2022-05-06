@@ -21,8 +21,6 @@ public interface PlotService {
 
 	void updateProductivityByPlotId(Long idPlot);
 
-//	Double getProductivityByIdPlot(Long idPlot);
-
 	Plot createPlotInFarmId(Plot plot, Long idFarm);
 
 }

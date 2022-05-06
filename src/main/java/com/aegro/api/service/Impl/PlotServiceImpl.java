@@ -12,7 +12,6 @@ import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
-import com.aegro.api.repository.ProductionRepository;
 import com.aegro.api.service.FarmService;
 import com.aegro.api.service.PlotService;
 import com.aegro.api.service.ProductivityPlot;
@@ -32,10 +31,7 @@ public class PlotServiceImpl implements PlotService{
 	
 	@Autowired
 	private FarmRepository farmRepository;
-	
-	@Autowired
-	private ProductionRepository productionRepository;
-	
+
 	@Autowired
 	private ProductivityPlot productivity;
 
