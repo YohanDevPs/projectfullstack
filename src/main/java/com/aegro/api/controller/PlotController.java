@@ -6,6 +6,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.service.PlotService;
 
@@ -49,14 +51,14 @@ public class PlotController {
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Plot getPlotById(@PathVariable("id") Long id) {
-		return plotService.getPlotByIdAndProductions(id)
+		return plotService.getPlotByIdWithYourProductions(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Talhao nao encontrado."));
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removePlotById(@PathVariable("id") Long id) {
-		plotService.getPlotByIdAndProductions(id).map(plot -> {
+		plotService.getPlotByIdWithYourProductions(id).map(plot -> {
 			plotService.removePlotById(plot.getIdPlot());
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Talhao nao encontrado."));
@@ -71,7 +73,7 @@ public class PlotController {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePlot(@PathVariable("id") Long id,@RequestBody Plot plot) {
-		plotService.getPlotByIdAndProductions(id)
+		plotService.getPlotByIdWithYourProductions(id)
 		.map(basePlot -> {
 			modelMapper.map(plot, basePlot);
 			plotService.savePlot(basePlot);
