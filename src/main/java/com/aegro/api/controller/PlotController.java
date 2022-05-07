@@ -46,12 +46,11 @@ public class PlotController {
 	public List<Plot> plotList() {
 		return plotService.plotList();
 	}
-
+	
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Optional<Plot>> getProductionById(@PathVariable("id") Long id) {
-		Optional<Plot> plot = plotService.getPlotByIdAndProductions(id);
-		return ResponseEntity.ok().body(plot);
+	public Optional<Plot> getPlotById(@PathVariable("id") Long id) {
+		return  plotService.getPlotByIdAndProductions(id);
 	}
 
 	@DeleteMapping("/{id}")

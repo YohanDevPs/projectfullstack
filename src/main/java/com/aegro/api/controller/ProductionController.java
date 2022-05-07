@@ -49,9 +49,8 @@ public class ProductionController {
 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Optional<Production>> getProductionById(@PathVariable("id") Long id) {
-		Optional<Production> prod = productionService.getProductionById(id);
-		return ResponseEntity.ok().body(prod);
+	public Optional<Production> getProductionById(@PathVariable("id") Long id) {
+		return productionService.getProductionById(id);
 	}
 
 	@DeleteMapping("/{id}")

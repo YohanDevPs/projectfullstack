@@ -52,9 +52,8 @@ public class FarmController {
 	
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<Optional<Farm>> getProductionById(@PathVariable("id") Long id) {
-			Optional<Farm> farm= farmService.getFarmById(id);
-			return ResponseEntity.ok().body(farm);
+	public Optional<Farm> getFarmById(@PathVariable("id") Long id) {
+			return farmService.getFarmById(id);
 	}
 	
 	@DeleteMapping("/{id}")
