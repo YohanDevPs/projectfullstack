@@ -59,7 +59,7 @@ public class FarmController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeFarmById(@PathVariable("id") Long id) {
-		farmService.getFarmById(id).map(farm -> {
+		farmService.getFarmByIdWithYourPlots(id).map(farm -> {
 			farmService.removeFarmById(farm.getId());
 			return Void.TYPE;
 		});
@@ -70,11 +70,11 @@ public class FarmController {
 	public void updateProductivity(@PathVariable Long id) {	
 		farmService.updateProductivityFarm(id);
 	}
-	
+
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateFarm(@PathVariable("id")Long id, @RequestBody Farm farm) {
-		farmService.getFarmById(id)
+		farmService.getFarmByIdWithYourPlots(id)
 		.map(baseFarm -> {
 			modelMapper.map(farm, baseFarm);
 			farmService.saveFarm(baseFarm);

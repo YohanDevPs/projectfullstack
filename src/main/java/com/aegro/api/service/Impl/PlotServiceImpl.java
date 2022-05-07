@@ -47,7 +47,7 @@ public class PlotServiceImpl implements PlotService{
 		return plotRepository.findAll();
 	}
 	
-	@Override
+  @Override
 	public Optional<Plot> getPlotByIdAndProductions(Long id){
 		return Optional.ofNullable(plotRepository.findById(id).orElseThrow(
 				() -> new EntityNotFoundException("Id not found "+ id)));
