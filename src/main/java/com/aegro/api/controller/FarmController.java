@@ -1,10 +1,12 @@
 package com.aegro.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.aegro.api.entities.Farm;
+import com.aegro.api.entities.Plot;
 import com.aegro.api.service.FarmService;
 
 /**
@@ -45,12 +48,13 @@ public class FarmController {
 	public List<Farm> farmList() {
 		return farmService.farmList();
 	}
+
 	
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Farm getFarmById(@PathVariable("id")Long id){
-		return farmService.getFarmById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
+	public ResponseEntity<Optional<Farm>> getProductionById(@PathVariable("id") Long id) {
+			Optional<Farm> farm= farmService.getFarmById(id);
+			return ResponseEntity.ok().body(farm);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -59,7 +63,7 @@ public class FarmController {
 		farmService.getFarmById(id).map(farm -> {
 			farmService.removeFarmById(farm.getId());
 			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
+		});
 	}
 	
 	@PutMapping("/{id}/updateproductivity")
@@ -76,6 +80,6 @@ public class FarmController {
 			modelMapper.map(farm, baseFarm);
 			farmService.saveFarm(baseFarm);
 			return Void.TYPE;
-		}).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
+		});
 	}
 }

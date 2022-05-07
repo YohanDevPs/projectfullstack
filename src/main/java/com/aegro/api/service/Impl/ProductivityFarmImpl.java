@@ -73,7 +73,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 		return productivityFormatted;
 	}
 
-	
 
 	private Double calculateProductivityFarm(Long idFarm) {
 

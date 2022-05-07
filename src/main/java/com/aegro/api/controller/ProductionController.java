@@ -1,10 +1,12 @@
 package com.aegro.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.aegro.api.entities.Plot;
 import com.aegro.api.entities.Production;
 import com.aegro.api.service.ProductionService;
 
@@ -27,30 +28,30 @@ import com.aegro.api.service.ProductionService;
 @RestController
 @RequestMapping("v1/production")
 public class ProductionController {
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private ProductionService productionService;
-	
+
 	@PostMapping("/{idPlot}/plot")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Production savePlotinFarm(@RequestBody Production production,@PathVariable("idPlot")  Long idPlot) {
+	public Production savePlotinFarm(@RequestBody Production production, @PathVariable("idPlot") Long idPlot) {
 		return productionService.createProductionInPlotId(production, idPlot);
 	}
-	
+
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	private List<Production> listProduction(){
+	private List<Production> listProduction() {
 		return productionService.productionList();
 	}
 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Production getProductionById(@PathVariable("id") Long id) {
-		return productionService.getProductionById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producao nao encontrada."));
+	public ResponseEntity<Optional<Production>> getProductionById(@PathVariable("id") Long id) {
+		Optional<Production> prod = productionService.getProductionById(id);
+		return ResponseEntity.ok().body(prod);
 	}
 
 	@DeleteMapping("/{id}")
@@ -59,16 +60,16 @@ public class ProductionController {
 		productionService.getProductionById(id).map(production -> {
 			productionService.removeProductionById(production.getIdProduction());
 			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producao nao encontrada."));
+		});
 	}
-	
+
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateProduction(@PathVariable("id") Long id,@RequestBody Production production) {
-		productionService.getProductionById(id).map(baseProduction ->{
+	public void updateProduction(@PathVariable("id") Long id, @RequestBody Production production) {
+		productionService.getProductionById(id).map(baseProduction -> {
 			modelMapper.map(production, baseProduction);
 			productionService.saveProduction(baseProduction);
 			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producao nao encontrada."));
+		});
 	}
 }

@@ -1,12 +1,19 @@
 package com.aegro.api.service.Impl;
 
+import static org.hamcrest.CoreMatchers.is;
+
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.aegro.api.entities.Farm;
+import com.aegro.api.entities.Plot;
 import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.service.FarmService;
 import com.aegro.api.service.ProductivityFarm;
@@ -35,10 +42,11 @@ public class FarmServiceImpl implements FarmService {
 	public List<Farm> farmList() {
 		return farmRepository.findAll();
 	}
-
+	
 	@Override
-	public Optional<Farm> getFarmById(Long id) {
-		return farmRepository.findById(id);
+	public Optional<Farm> getFarmById(Long id){
+		return Optional.ofNullable(farmRepository.findById(id).orElseThrow(
+				() -> new EntityNotFoundException("Id not found "+ id)));
 	}
 
 	@Override
