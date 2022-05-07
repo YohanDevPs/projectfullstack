@@ -63,7 +63,7 @@ class ProductionControllerTest {
 		given()
 		.accept(ContentType.JSON)
 		.when()
-		.get("v1/production/{id}", 5L)
+		.get("v1/production/{id}", 90L)
 		.then()
 		.statusCode(HttpStatus.SC_NOT_FOUND);
 	}

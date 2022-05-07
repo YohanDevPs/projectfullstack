@@ -3,6 +3,9 @@ package com.aegro.api.service.Impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
+import org.hamcrest.collection.IsEmptyCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,12 +39,13 @@ public class ProductionServiceImpl implements ProductionService {
 
 	@Override
 	public List<Production> productionList() {
-		return productionRepository.findAll();
-	}
+		return productionRepository.findAll();			
+	}	
 	
 	@Override
 	public Optional<Production> getProductionById(Long id){
-		return productionRepository.findById(id);
+		return Optional.ofNullable(productionRepository.findById(id).orElseThrow(
+				() -> new EntityNotFoundException("Id not found "+ id)));
 	}
 	
 	@Override
@@ -51,7 +55,7 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	@Override
 	public Production createProductionInPlotId(Production production, Long idPlot) {
-		
+	
 		Plot plot = plotRepository.getById(idPlot);
 		
 		production.setPlot(plot);
@@ -61,7 +65,6 @@ public class ProductionServiceImpl implements ProductionService {
 		plotService.savePlot(plot);
 		
 		return productionRepository.save(production);	
-		
 	}
 	
 }

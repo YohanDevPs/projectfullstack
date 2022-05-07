@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.aegro.api.entities.Farm;
+import com.aegro.api.entities.Plot;
 import com.aegro.api.service.FarmService;
 
 /**
@@ -47,12 +48,12 @@ public class FarmController {
 	public List<Farm> farmList() {
 		return farmService.farmList();
 	}
+
 	
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Farm getFarmById(@PathVariable("id")Long id){
-		return farmService.getFarmByIdWithYourPlots(id)
-			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
+	public Optional<Farm> getFarmById(@PathVariable("id") Long id) {
+			return farmService.getFarmById(id);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -61,7 +62,7 @@ public class FarmController {
 		farmService.getFarmByIdWithYourPlots(id).map(farm -> {
 			farmService.removeFarmById(farm.getId());
 			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
+		});
 	}
 	
 	@PutMapping("/{id}/updateproductivity")
@@ -78,6 +79,6 @@ public class FarmController {
 			modelMapper.map(farm, baseFarm);
 			farmService.saveFarm(baseFarm);
 			return Void.TYPE;
-		}).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fazenda nao encontrada."));
+		});
 	}
 }

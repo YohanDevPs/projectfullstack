@@ -4,6 +4,8 @@ package com.aegro.api.service.Impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -45,13 +47,14 @@ public class PlotServiceImpl implements PlotService{
 		return plotRepository.findAll();
 	}
 	
-	@Override
-	public Optional<Plot> getPlotByIdWithYourProductions(Long id){
-		return plotRepository.findById(id);
+  @Override
+	public Optional<Plot> getPlotByIdAndProductions(Long id){
+		return Optional.ofNullable(plotRepository.findById(id).orElseThrow(
+				() -> new EntityNotFoundException("Id not found "+ id)));
 	}
 	
 	@Override
-	public void removePlotById(Long id)throws DataAccessException {	
+	public void removePlotById(Long id) {	
 		plotRepository.deleteById(id);	
 	}
 	
