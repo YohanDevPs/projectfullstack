@@ -1,71 +1,133 @@
 package com.aegro.api.controller;
 
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
-import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Optional;
-
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.aegro.api.entities.Plot;
 import com.aegro.api.service.FarmService;
 import com.aegro.api.service.PlotService;
 import com.aegro.api.service.ProductionService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.restassured.http.ContentType;
+/**
+ * @author Yohan Silva
+ */
 
-@WebMvcTest
+@SpringBootTest
+@AutoConfigureMockMvc
 class PlotControllerTest {
 
 	@Autowired
-	private PlotController plotController;
-
+	MockMvc mockMvc;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
+	
 	@MockBean
 	private FarmService farmService;
-
+	
 	@MockBean
-	private ProductionService productionServices;
-
+	private ProductionService productionService;
+	
 	@MockBean
 	private PlotService plotService;
 
-	@BeforeEach
-	public void setup() {
-		standaloneSetup(this.plotController);
+	@Test
+	public void mustReturnOk_AndTestCreatePlotMethod() throws Exception {
+		
+		Plot plot = new Plot("Talhao Azul", 200.0);
+		
+		Long idFarm = 1L;
+		
+		plotService.createPlotInFarmId(plot, idFarm);
+		
+		Mockito.verify(plotService, Mockito.times(1)).createPlotInFarmId(plot, idFarm);
+		
+		mockMvc.perform(post("/v1/plot/{idFarm}/farm", 1L)
+				.contentType("application/json")
+				.content(objectMapper.writeValueAsString(plot)))
+		.andExpect(status().isCreated());
 	}
 
 	@Test
-	public void mustReturnOk_WhenGetAPlotById() {
-		Optional<Plot> plot = Optional.ofNullable(new Plot("Talhao Vermelho", 400.0));
+	public void mustReturnOk_AndTestPlotListMethod() throws Exception {
+		
+		plotService.plotList();
+		
+		Mockito.verify(plotService, Mockito.times(1))
+		.plotList();
 
-		when(this.plotService.getPlotByIdAndProductions(1L)).thenReturn(plot);
-
-		given()
-		.accept(ContentType.JSON)
-		.when()
-		.get("v1/plot/{id}", 1L)
-		.then()
-		.statusCode(HttpStatus.SC_OK);
+		mockMvc.perform(get("/v1/plot"))
+		.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void mustReturnOk_AndTestGetAPlotByIdMethod() throws Exception {
+		
+		Long idPlot = 1L;
+		
+		plotService.getPlotByIdWithYourProductions(idPlot);
+		
+		Mockito.verify(plotService, Mockito.times(1))
+		.getPlotByIdWithYourProductions(idPlot);
+		
+		mockMvc.perform(get("/v1/plot/{id}", 1L))
+		.andExpect(status().isOk());
+	}
+	
+	
+	
+	@Test
+	public void mustReturnEmpty_AndTestRemoveAPlotByIdMethod() throws Exception {
+		
+		Long idPlotToRemove =  1L;
+					
+		plotService.removePlotById(idPlotToRemove);
+				
+		Mockito.verify(plotService, Mockito.times(1))
+					.removePlotById(idPlotToRemove);
+				
+		mockMvc.perform(delete("/v1/plot/{id}",1L)
+				.contentType("application/json")
+				.content(objectMapper.writeValueAsString(idPlotToRemove)))
+				.andExpect(status().isNoContent());
 	}
 
 	@Test
-	public void mustReturnNotFound_WhenGetAPlotById() {
-		Optional<Plot> plot = Optional.ofNullable(new Plot("Talhao Vermelho", 400.0));
-
-		when(this.plotService.getPlotByIdAndProductions(1L)).thenReturn(plot);
-
-		given()
-		.accept(ContentType.JSON)
-		.when()
-		.get("v1/plot/{id}", 5L)
-		.then()
-		.statusCode(HttpStatus.SC_NOT_FOUND);
+	public void mustReturnNoContent_AndTestUpdateProductivityOfPlot() throws Exception {
+		
+		Long idPlotToUpdate =  1L;
+		
+		plotService.updateProductivityByPlotId(idPlotToUpdate);
+		
+		Mockito.verify(plotService, Mockito.times(1))
+			.updateProductivityByPlotId(idPlotToUpdate);
+		
+		mockMvc.perform(put("/v1/plot/{id}/updateproductivity", 1L))
+			.andExpect(status().isNoContent());
+		
+	}
+	
+	@Test
+	public void mustReturnNoContent() throws Exception {
+		
+		Plot plot = new Plot("Fazenda do João", 300.0);
+		
+		mockMvc.perform(put("/v1/farm/{id}",1L)
+				.contentType("application/json")
+				.content(objectMapper.writeValueAsString(plot)))
+				.andExpect(status().isNoContent());
+		
 	}
 }
-

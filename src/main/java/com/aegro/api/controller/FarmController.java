@@ -53,7 +53,7 @@ public class FarmController {
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Optional<Farm> getFarmById(@PathVariable("id") Long id) {
-			return farmService.getFarmById(id);
+			return farmService.getFarmByIdWithYourPlots(id);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -67,7 +67,7 @@ public class FarmController {
 	
 	@PutMapping("/{id}/updateproductivity")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateProductivity(@PathVariable Long id) {	
+	public void updateProductivity(@PathVariable Long id) {
 		farmService.updateProductivityFarm(id);
 	}
 

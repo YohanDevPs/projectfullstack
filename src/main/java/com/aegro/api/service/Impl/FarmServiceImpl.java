@@ -40,7 +40,7 @@ public class FarmServiceImpl implements FarmService {
 	}
 	
   @Override
-	public Optional<Farm> getFarmById(Long id){
+	public Optional<Farm> getFarmByIdWithYourPlots(Long id){
 		return Optional.ofNullable(farmRepository.findById(id).orElseThrow(
 				() -> new EntityNotFoundException("Id not found "+ id)));
 	}

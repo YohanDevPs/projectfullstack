@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -13,11 +12,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.aegro.api.entities.Plot;
 import com.aegro.api.entities.Production;
 import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.repository.ProductionRepository;
 import com.aegro.api.service.Impl.ProductionServiceImpl;
+
+/**
+ * @author Yohan Silva
+ */
 
 @SpringBootTest
 @AutoConfigureMockMvc

@@ -3,6 +3,10 @@ package com.aegro.api.resources;
 import java.io.Serializable;
 import java.time.Instant;
 
+/**
+ * @author Yohan Silva
+ */
+
 public class StandartError implements Serializable{
 	private static final long serialVersionUID = 1L;
 

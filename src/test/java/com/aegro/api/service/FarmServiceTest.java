@@ -1,13 +1,9 @@
 package com.aegro.api.service;
 
-import static org.mockito.ArgumentMatchers.anyCollection;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -22,6 +18,7 @@ import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.repository.ProductionRepository;
 import com.aegro.api.service.Impl.FarmServiceImpl;
+import com.aegro.api.service.Impl.ProductivityFarmImpl;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,6 +29,9 @@ public class FarmServiceTest {
 
 	@MockBean
 	private ProductionRepository productionRepository;
+	
+	@MockBean
+	private ProductivityFarmImpl productivity;
 
 	@MockBean
 	private PlotRepository plotRepository;
@@ -72,8 +72,6 @@ public class FarmServiceTest {
 		Farm farm = Mockito.mock(Farm.class);
 		
 		List<Plot> plotsList = listOfPlots();
-
-		double totalArea = farm.getPlots().stream().mapToDouble(c -> c.getPlotAreaInHectare()).sum();
 
 		Mockito.when(farm.getNameFarm()).thenReturn("Fazenda X");
 		Mockito.when(farm.getId()).thenReturn(1L);
@@ -149,9 +147,9 @@ public class FarmServiceTest {
 
 		Mockito.when(plotRepository.totalAreaByFarmId(ArgumentMatchers.eq(idFarm))).thenReturn(totalArea);
 
-		farmService.getTotalAreaByFarmId(idFarm);
+		productivity.getTotalAreaByFarmId(idFarm);
 
-		Mockito.verify(plotRepository, Mockito.times(1)).totalAreaByFarmId(idFarm);
+		Mockito.verify(productivity, Mockito.times(1)).getTotalAreaByFarmId(idFarm);
 	}
 	
 

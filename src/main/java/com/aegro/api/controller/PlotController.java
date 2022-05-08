@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.service.PlotService;
 
@@ -48,10 +45,10 @@ public class PlotController {
 		return plotService.plotList();
 	}
 	
-  @GetMapping("/{id}")
+    @GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Optional<Plot> getPlotById(@PathVariable("id") Long id) {
-		return  plotService.getPlotByIdAndProductions(id);
+		return  plotService.getPlotByIdWithYourProductions(id);
 	}
 
 	@DeleteMapping("/{id}")
@@ -73,7 +70,7 @@ public class PlotController {
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePlot(@PathVariable("id") Long id, @RequestBody Plot plot) {
-		plotService.getPlotByIdAndProductions(id).map(basePlot -> {
+		plotService.getPlotByIdWithYourProductions(id).map(basePlot -> {
 			modelMapper.map(plot, basePlot);
 			plotService.savePlot(basePlot);
 			return Void.TYPE;

@@ -43,8 +43,8 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		this.plotRepository.save(plot);
 	}
 	
-
-	private Double calculatePlotProductivity(Long idPlot) {
+	
+	public Double calculatePlotProductivity(Long idPlot) {
 		
 		double productionTotal = productionRepository.totalProductionByPlot(idPlot);
 		double areaPlot = plotRepository.getById(idPlot).getPlotAreaInHectare();

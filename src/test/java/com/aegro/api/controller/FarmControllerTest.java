@@ -1,73 +1,122 @@
 package com.aegro.api.controller;
 
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
-import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Optional;
-
-import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
 import com.aegro.api.entities.Farm;
 import com.aegro.api.service.FarmService;
-import com.aegro.api.service.PlotService;
-import com.aegro.api.service.ProductionService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.restassured.http.ContentType;
+/**
+ * @author Yohan Silva
+ */
 
-@WebMvcTest
+@SpringBootTest
+@AutoConfigureMockMvc
 class FarmControllerTest {
 
-
+	@Autowired
+	MockMvc mockMvc;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
+	
 	@MockBean
 	private FarmService farmService;
 	
-	@Autowired
-	private FarmController farmController;
+	@Test
+	public void mustReturnOk_AndTestGetFarmMethod() throws Exception {
+		
+		Long idFarm = 1l;
+		
+		farmService.getFarmByIdWithYourPlots(idFarm);
+		
+		Mockito.verify(farmService, Mockito.times(1))
+		.getFarmByIdWithYourPlots(idFarm);
+		
+		mockMvc.perform(get("/v1/farm/{id}", 1L))
+		.andExpect(status().isOk());
+	}
+
+	@Test
+	public void mustReturnOk_AndTestGetListMethod() throws Exception {
 	
-	@MockBean
-	private PlotService plotService;
-	
-	@MockBean
-	private ProductionService productionServices;
-	
-	
-	@BeforeEach
-	public void setup() {
-		standaloneSetup(this.farmController);
+		farmService.farmList();
+		
+		Mockito.verify(farmService, Mockito.times(1))
+		.farmList();
+		
+		mockMvc.perform(get("/v1/farm"))
+		.andExpect(status().isOk());
 	}
 	
 	@Test
-	public void mustReturnOk_WhenGetAFarmById() {
-		Optional<Farm> farm = Optional.ofNullable(new Farm("Fazenda X"));
+	public void mustReturnNoContent_AndTestRemoveMethod() throws Exception {
 		
-		when(this.farmService.getFarmById(1L)).thenReturn(farm);
-		
-		given()
-		.accept(ContentType.JSON)
-		.when()
-		.get("v1/farm/{id}", 1L)
-		.then()
-		.statusCode(HttpStatus.SC_OK);
+		Long idFarmToRemove =  1L;
+			    		
+		Farm farm = new Farm("Fazenda X");	
+					
+		farmService.removeFarmById(idFarmToRemove);
+				
+		Mockito.verify(farmService, Mockito.times(1))
+					.removeFarmById(idFarmToRemove);
+				
+		mockMvc.perform(delete("/v1/farm/{id}",1L)
+				.contentType("application/json")
+				.content(objectMapper.writeValueAsString(farm)))
+				.andExpect(status().isNoContent());
 	}
 	
 	@Test
-	public void mustReturnNotFound_WhenGetAFarmById() {
-		Optional<Farm> farm = Optional.ofNullable(new Farm("Fazenda X"));
+	public void mustReturnIsCreated_AndTestSaveFarmMethod() throws Exception {
 		
-		when(this.farmService.getFarmById(1L)).thenReturn(farm);
+		Farm farm = new Farm("Fazenda do João");
 		
-		given()
-		.accept(ContentType.JSON)
-		.when()
-		.get("v1/farm/{id}", 5L)
-		.then()
-		.statusCode(HttpStatus.SC_NOT_FOUND);
+		farmService.saveFarm(farm);
+		
+		Mockito.verify(farmService, Mockito.times(1))
+			    .saveFarm(farm);
+		
+		mockMvc.perform(post("/v1/farm")
+				.contentType("application/json")
+				.content(objectMapper.writeValueAsString(farm)))
+				.andExpect(status().isCreated());
 	}
+	
+	@Test
+	public void mustReturnNoContent_AndTestUpgradeProductivityMethod() throws Exception {
 		
+		Long idFarmToUpdate =  1L;
+		
+		farmService.updateProductivityFarm(idFarmToUpdate);
+		
+		Mockito.verify(farmService, Mockito.times(1))
+			.updateProductivityFarm(idFarmToUpdate);
+		
+		mockMvc.perform(put("/v1/farm/{id}/updateproductivity", 1L))
+			.andExpect(status().isNoContent());
+	}
+	
+	@Test
+	public void mustReturnNoContent() throws Exception {
+		
+		Farm farm = new Farm("Fazenda do João");
+		
+		mockMvc.perform(put("/v1/farm/{id}",1L)
+				.contentType("application/json")
+				.content(objectMapper.writeValueAsString(farm)))
+				.andExpect(status().isNoContent());
+	}	
 }
