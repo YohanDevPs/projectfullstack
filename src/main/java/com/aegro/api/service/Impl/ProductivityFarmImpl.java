@@ -73,14 +73,20 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 		return productivityFormatted;
 	}
 
-
 	private Double calculateProductivityFarm(Long idFarm) {
 
 		double c = getProductionFarmById(idFarm);
 		double b = getTotalAreaByFarmId(idFarm);
-		double productivityFarm = c / b;
 
-		return productivityFarm;
+		try {
+			double productivityFarm = c / b;
+			return productivityFarm;
+		} 
+		catch (ArithmeticException e) {
+			e.getCause();
+		}
+		
+		return null;
 	}
 
 	private Double limitDecimalPlace(double productivityFarm) {

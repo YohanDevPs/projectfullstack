@@ -17,47 +17,53 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 
 	@Autowired
 	private PlotRepository plotRepository;
-	
+
 	@Autowired
 	private ProductionRepository productionRepository;
-	
-	
+
 	@Override
 	public Double getProductivityByIdPlot(Long idPlot) {
-		
+
 		double productivity = calculatePlotProductivity(idPlot);
 		double formattedProductivity = limitDecimalPlace(productivity);
-		
+
 		return formattedProductivity;
 	}
 
 	@Override
 	public void updateProductivityByPlotId(Long idPlot) {
-		
+
 		double plotProductivity = getProductivityByIdPlot(idPlot);
-		
+
 		Plot plot = plotRepository.findById(idPlot).get();
-		
+
 		plot.setPlotProductivity(plotProductivity);
-		
+
 		this.plotRepository.save(plot);
 	}
-	
-	
+
 	public Double calculatePlotProductivity(Long idPlot) {
-		
+
 		double productionTotal = productionRepository.totalProductionByPlot(idPlot);
+
 		double areaPlot = plotRepository.getById(idPlot).getPlotAreaInHectare();
-		double productivity = productionTotal/areaPlot;
-		
-		return productivity;
+
+		try {
+
+			double productivity = productionTotal / areaPlot;
+			return productivity;
+
+		} catch (ArithmeticException e) {
+			e.getCause();
+		}
+		return null;
 	}
-	
+
 	private Double limitDecimalPlace(double productivity) {
-		
-		double formattedProductivity = (Math.round(productivity*1000.0)/1000.0);
-		
+
+		double formattedProductivity = (Math.round(productivity * 1000.0) / 1000.0);
+
 		return formattedProductivity;
 	}
-	
+
 }
