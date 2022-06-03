@@ -44,7 +44,8 @@ public class Plot implements Serializable{
 	@JoinColumn(name = "farm_id")
 	private Farm farm;
 	
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="plot", orphanRemoval=true)
+//	@JsonIgnore
+	@OneToMany(cascade=CascadeType.MERGE, mappedBy="plot", orphanRemoval=true)
 	private List<Production> produtions = new ArrayList<>();
 
 	public Plot() {

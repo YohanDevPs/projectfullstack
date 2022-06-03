@@ -1,11 +1,14 @@
 package com.aegro.api.service.Impl;
 
 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,9 @@ import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.service.FarmService;
 import com.aegro.api.service.PlotService;
+import com.aegro.api.service.ProductivityFarm;
 import com.aegro.api.service.ProductivityPlot;
+
 
 /**
  * @author Yohan Silva
@@ -28,13 +33,11 @@ public class PlotServiceImpl implements PlotService{
 	private PlotRepository plotRepository;
 	
 	@Autowired
-	private FarmService farmService;
-	
-	@Autowired
 	private FarmRepository farmRepository;
 
 	@Autowired
-	private ProductivityPlot productivity;
+	private ProductivityFarm productivity;
+	
 
 	@Override
 	public Plot savePlot(Plot plot) {
@@ -59,22 +62,42 @@ public class PlotServiceImpl implements PlotService{
 	
 	@Override
 	public Plot createPlotInFarmId(Plot plot, Long idFarm) {
-		
+
 		Farm farm = farmRepository.getById(idFarm);
 		
 		plot.setFarm(farm);
 		
 		farm.getPlots().add(plot);
 		
-		farmService.saveFarm(farm);
+		/*
+		 * Code for capture new productivityFarm and update this value to productivityFarm atribute.
+		 */
 		
-		return 	plotRepository.save(plot);		
+		double productivityFarm = productivity.getFarmProductivityById(idFarm);
+		farm.setFarmProductivity(productivityFarm);
+		
+		return plotRepository.save(plot);		
 	}
-	
+
 
 	@Override
-	public void updateProductivityByPlotId(Long idPlot) {
-		productivity.updateProductivityByPlotId(idPlot);
+	public List<Plot> plotListOfFarmId(Long idFarm) {
+		
+		List<Plot> plots = plotRepository.findAll();
+		plots.get(0);
+		
+		Plot plot = new Plot();
+		
+		List<Plot> newListPlot = new ArrayList<>();
+		
+		for(int i = 0; i < plots.size(); i++) {
+			if (plots.get(i).getFarm().getId() == idFarm) {
+				plot = plots.get(i);
+				newListPlot.add(plot);
+			}
+		}
+		
+		return newListPlot;
 	}
 
 }

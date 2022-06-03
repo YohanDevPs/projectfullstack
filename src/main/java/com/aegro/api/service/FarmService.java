@@ -18,7 +18,5 @@ public interface FarmService {
 	Optional<Farm> getFarmByIdWithYourPlots(Long id);
 	
 	void removeFarmById(Long id);
-
-	void updateProductivityFarm(Long idFarm);
-
+	
 }

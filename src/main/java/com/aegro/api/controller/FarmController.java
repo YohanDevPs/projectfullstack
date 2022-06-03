@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.aegro.api.entities.Farm;
-import com.aegro.api.entities.Plot;
 import com.aegro.api.service.FarmService;
 
 /**
@@ -37,25 +35,28 @@ public class FarmController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Farm saveFarm(@RequestBody Farm farm) {
 		return farmService.saveFarm(farm);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Farm> farmList() {
 		return farmService.farmList();
 	}
 
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Optional<Farm> getFarmById(@PathVariable("id") Long id) {
 			return farmService.getFarmByIdWithYourPlots(id);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeFarmById(@PathVariable("id") Long id) {
@@ -64,13 +65,8 @@ public class FarmController {
 			return Void.TYPE;
 		});
 	}
-	
-	@PutMapping("/{id}/updateproductivity")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateProductivity(@PathVariable Long id) {
-		farmService.updateProductivityFarm(id);
-	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateFarm(@PathVariable("id")Long id, @RequestBody Farm farm) {

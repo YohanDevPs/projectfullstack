@@ -6,8 +6,6 @@ package com.aegro.api.service;
 
 public interface ProductivityFarm {
 	
-	void updateProductivityFarm(Long idFarm);
-	
 	Double getTotalAreaByFarmId(Long idFarm);
 	
 	Double getProductionFarmById(Long idFarm);

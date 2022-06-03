@@ -30,18 +30,6 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		return formattedProductivity;
 	}
 
-	@Override
-	public void updateProductivityByPlotId(Long idPlot) {
-
-		double plotProductivity = getProductivityByIdPlot(idPlot);
-
-		Plot plot = plotRepository.findById(idPlot).get();
-
-		plot.setPlotProductivity(plotProductivity);
-
-		this.plotRepository.save(plot);
-	}
-
 	public Double calculatePlotProductivity(Long idPlot) {
 
 		double productionTotal = productionRepository.totalProductionByPlot(idPlot);

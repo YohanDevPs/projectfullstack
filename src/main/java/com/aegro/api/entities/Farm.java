@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Yohan Silva
  */
@@ -31,7 +33,8 @@ public class Farm implements Serializable {
 	@Column(unique = true)
 	private String nameFarm;
 
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy="farm", orphanRemoval=true)
+//	@JsonIgnore
+	@OneToMany(cascade=CascadeType.MERGE, mappedBy="farm", orphanRemoval=true)
 	private List<Plot> plots = new ArrayList<>();
 	
 	public Farm() {

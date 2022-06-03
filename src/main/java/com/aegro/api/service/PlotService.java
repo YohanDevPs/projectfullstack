@@ -19,8 +19,8 @@ public interface PlotService {
 
 	void removePlotById(Long id);
 
-	void updateProductivityByPlotId(Long idPlot);
-
 	Plot createPlotInFarmId(Plot plot, Long idFarm);
+	
+	List<Plot> plotListOfFarmId(Long idFarm);
 
 }

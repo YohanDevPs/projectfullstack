@@ -21,5 +21,7 @@ public interface ProductionService {
 	void removeProductionById(Long id);
 
 	Production createProductionInPlotId(Production production, Long idPlot);
+
+	List<Production> productionListByPlotId(Long idPlot);
 }
 

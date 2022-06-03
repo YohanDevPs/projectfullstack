@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,24 +34,36 @@ public class PlotController {
 	@Autowired
 	private PlotService plotService;
 
-	@PostMapping("/{idFarm}/farm")
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/{idFarm}/farmid")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Plot savePlotinFarm(@RequestBody Plot plot, @PathVariable("idFarm") Long idFarm) {
 		return plotService.createPlotInFarmId(plot, idFarm);
 	}
+	
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Plot> plotList() {
 		return plotService.plotList();
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/{id}/farmid")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Plot> plotListOfFarmId(@PathVariable("id") Long id) {
+		return plotService.plotListOfFarmId(id);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Optional<Plot> getPlotById(@PathVariable("id") Long id) {
 		return  plotService.getPlotByIdWithYourProductions(id);
 	}
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removePlotById(@PathVariable("id") Long id) {
@@ -60,13 +73,7 @@ public class PlotController {
 		});
 	}
 
-	@PutMapping("/{id}/updateproductivity")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateProductivity(@PathVariable Long id) {
-		plotService.updateProductivityByPlotId(id);
-	}
-
-
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePlot(@PathVariable("id") Long id, @RequestBody Plot plot) {

@@ -18,9 +18,6 @@ import com.aegro.api.service.ProductivityFarm;
 
 @Service
 public class ProductivityFarmImpl implements ProductivityFarm{
-	
-	@Autowired
-	private FarmRepository farmRepository;
 
 	@Autowired
 	private ProductionRepository productionRepository;
@@ -28,25 +25,22 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	@Autowired
 	private PlotRepository plotRepository;
 
+
 	@Override
-	public void updateProductivityFarm(Long idFarm) {
+	public Double getFarmProductivityById(Long idFarm) {
 		
-		double productivityFarm = getFarmProductivityById(idFarm);
+		double productivityFarm = calculateProductivityFarm(idFarm);
+		double productivityFormatted = limitDecimalPlace(productivityFarm);
 		
-		Farm farm = farmRepository.findById(idFarm).get();
-		
-		farm.setFarmProductivity(productivityFarm);
-		
-		farmRepository.save(farm);
+		return productivityFormatted;
 	}
 
 	
-	@Override
 	public Double getTotalAreaByFarmId(Long idFarm) {
 		return plotRepository.totalAreaByFarmId(idFarm);
 	}
+	
 
-	@Override
 	public Double getProductionFarmById(Long idFarm) {
 
 		List<Plot> allPlots = plotRepository.findAll();
@@ -64,14 +58,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 		return sumProductionFarm;
 	}
 
-	@Override
-	public Double getFarmProductivityById(Long idFarm) {
-
-		double productivityFarm = calculateProductivityFarm(idFarm);
-		double productivityFormatted = limitDecimalPlace(productivityFarm);
-
-		return productivityFormatted;
-	}
 
 	private Double calculateProductivityFarm(Long idFarm) {
 
@@ -85,7 +71,7 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 		catch (ArithmeticException e) {
 			e.getCause();
 		}
-		
+	
 		return null;
 	}
 
