@@ -1,6 +1,7 @@
 package com.aegro.api.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +28,12 @@ public class Farm implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = true)
 	private Double farmProductivity;
 	
-	@Column(unique = true)
+	@Column(unique = false)
 	private String nameFarm;
-
+	
 //	@JsonIgnore
 	@OneToMany(cascade=CascadeType.MERGE, mappedBy="farm", orphanRemoval=true)
 	private List<Plot> plots = new ArrayList<>();

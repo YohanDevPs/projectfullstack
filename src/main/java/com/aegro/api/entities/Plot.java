@@ -30,13 +30,13 @@ public class Plot implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPlot;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String namePlot;
 	
-	@Column
+	@Column(nullable = true)
 	private Double plotProductivity;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Double plotAreaInHectare;
 	
 	@JsonIgnore

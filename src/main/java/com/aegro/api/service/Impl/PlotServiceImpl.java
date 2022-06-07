@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,6 @@ import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
-import com.aegro.api.service.FarmService;
 import com.aegro.api.service.PlotService;
 import com.aegro.api.service.ProductivityFarm;
 import com.aegro.api.service.ProductivityPlot;
@@ -36,9 +34,8 @@ public class PlotServiceImpl implements PlotService{
 	private FarmRepository farmRepository;
 
 	@Autowired
-	private ProductivityFarm productivity;
+	private ProductivityFarm productivityFarm;
 	
-
 	@Override
 	public Plot savePlot(Plot plot) {
 		return plotRepository.save(plot); 
@@ -57,6 +54,9 @@ public class PlotServiceImpl implements PlotService{
 	
 	@Override
 	public void removePlotById(Long id) {	
+		
+		productivityFarm.updateFarmProductivityWhenDeletePlot(id);
+	
 		plotRepository.deleteById(id);	
 	}
 	
@@ -66,19 +66,14 @@ public class PlotServiceImpl implements PlotService{
 		Farm farm = farmRepository.getById(idFarm);
 		
 		plot.setFarm(farm);
-		
+			
 		farm.getPlots().add(plot);
 		
-		/*
-		 * Code for capture new productivityFarm and update this value to productivityFarm atribute.
-		 */
-		
-		double productivityFarm = productivity.getFarmProductivityById(idFarm);
-		farm.setFarmProductivity(productivityFarm);
-		
+		productivityFarm.updateProductivityFarmWhenCreatePlot(plot, idFarm);
+	
 		return plotRepository.save(plot);		
 	}
-
+	
 
 	@Override
 	public List<Plot> plotListOfFarmId(Long idFarm) {

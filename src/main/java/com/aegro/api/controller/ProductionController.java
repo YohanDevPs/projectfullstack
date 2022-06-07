@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.entities.Production;
 import com.aegro.api.service.ProductionService;
+import com.aegro.api.service.ProductivityPlot;
+import com.aegro.api.service.Impl.ProductivityPlotImpl;
 
 /**
  * @author Yohan Silva
@@ -34,11 +36,11 @@ public class ProductionController {
 
 	@Autowired
 	private ProductionService productionService;
-
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/{idPlot}/plot")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Production savePlotinFarm(@RequestBody Production production, @PathVariable("idPlot") Long idPlot) {
+	public Production saveProductionInPlot(@RequestBody Production production, @PathVariable("idPlot") Long idPlot) {
 		return productionService.createProductionInPlotId(production, idPlot);
 	}
 

@@ -104,20 +104,20 @@ class PlotControllerTest {
 				.andExpect(status().isNoContent());
 	}
 
-	@Test
-	public void mustReturnNoContent_AndTestUpdateProductivityOfPlot() throws Exception {
-		
-		Long idPlotToUpdate =  1L;
-		
-		plotService.updateProductivityByPlotId(idPlotToUpdate);
-		
-		Mockito.verify(plotService, Mockito.times(1))
-			.updateProductivityByPlotId(idPlotToUpdate);
-		
-		mockMvc.perform(put("/v1/plot/{id}/updateproductivity", 1L))
-			.andExpect(status().isNoContent());
-		
-	}
+//	@Test
+//	public void mustReturnNoContent_AndTestUpdateProductivityOfPlot() throws Exception {
+//		
+//		Long idPlotToUpdate =  1L;
+//		
+//		plotService.updateProductivityByPlotId(idPlotToUpdate);
+//		
+//		Mockito.verify(plotService, Mockito.times(1))
+//			.updateProductivityByPlotId(idPlotToUpdate);
+//		
+//		mockMvc.perform(put("/v1/plot/{id}/updateproductivity", 1L))
+//			.andExpect(status().isNoContent());
+//		
+//	}
 	
 	@Test
 	public void mustReturnNoContent() throws Exception {

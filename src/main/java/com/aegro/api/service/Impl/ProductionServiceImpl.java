@@ -21,6 +21,7 @@ import com.aegro.api.service.PlotService;
 import com.aegro.api.service.ProductionService;
 import com.aegro.api.service.ProductivityFarm;
 import com.aegro.api.service.ProductivityPlot;
+import com.aegro.api.service.ProductivityShared;
 
 /**
  * @author Yohan Silva
@@ -33,9 +34,6 @@ public class ProductionServiceImpl implements ProductionService {
 	private ProductionRepository productionRepository;
 	
 	@Autowired
-	private PlotService plotService;
-	
-	@Autowired
 	private PlotRepository plotRepository;
 	
 	@Autowired
@@ -44,10 +42,7 @@ public class ProductionServiceImpl implements ProductionService {
 	@Autowired
 	private ProductivityFarm productivityFarm;
 	
-	@Autowired
-	private FarmRepository farmRepository;
-	
-		
+			
 	@Override
 	public Production saveProduction(Production production) {
 		return productionRepository.save(production); 
@@ -65,31 +60,27 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 	
 	@Override
-	public void removeProductionById(Long id) {
+	public void removeProductionById(Long id) {	
+		
+		productivityFarm.updateFarmProductivityWhenDeleteProduction(id);
+		productivityPlot.updatePlotProductivityWhenDeleteProduction(id);
+		
 		productionRepository.deleteById(id);	
 	}
 	
 	@Override
 	public Production createProductionInPlotId(Production production, Long idPlot) {
-	
-		Plot plot = plotRepository.getById(idPlot);
-		production.setPlot(plot);
 		
-		/*
-		 * Code for new productivity capture and update in Plot and Farm
-		 */
-		
-		double productivity = productivityPlot.getProductivityByIdPlot(idPlot);
-		plot.setPlotProductivity(productivity);
+		Plot plot = plotRepository.getById(idPlot);	
 		plot.getProdutions().add(production);
-		
-		Farm farm = farmRepository.getById(idPlot);
-		Long idFarm = farm.getId();
-		double prodFarm = productivityFarm.getFarmProductivityById(idFarm);
-		farm.setFarmProductivity(prodFarm);
+		production.setPlot(plot);
+			
+		productivityPlot.updatePlotProductivityWhenCreateProduction(production, idPlot);
+		productivityFarm.updateFarmProductivityWhenCreateProduction(production, idPlot);
 		
 		return productionRepository.save(production);	
 	}
+
 	
 	@Override
 	public List<Production> productionListByPlotId(Long idPlot) {

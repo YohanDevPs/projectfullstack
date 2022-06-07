@@ -25,7 +25,7 @@ public class Production implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProduction;
 	
-	@Column
+	@Column(nullable = true)
 	private Double amount;
 	
 	@JsonIgnore

@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.service.PlotService;
+import com.aegro.api.service.ProductivityFarm;
+import com.aegro.api.service.ProductivityPlot;
 
 /**
  * @author Yohan Silva
@@ -33,6 +36,12 @@ public class PlotController {
 
 	@Autowired
 	private PlotService plotService;
+	
+	@Autowired
+	private ProductivityPlot productivityPlot;
+	
+	@Autowired
+	private ProductivityFarm productivityFarm;
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/{idFarm}/farmid")
@@ -71,12 +80,17 @@ public class PlotController {
 			plotService.removePlotById(plot.getIdPlot());
 			return Void.TYPE;
 		});
+		
 	}
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePlot(@PathVariable("id") Long id, @RequestBody Plot plot) {
+		
+		productivityFarm.updateFarmProductivityWhenUpdatePlot(id, plot);
+		productivityPlot.updateProductivityPlotWhenChangeArea(id, plot);
+		
 		plotService.getPlotByIdWithYourProductions(id).map(basePlot -> {
 			modelMapper.map(plot, basePlot);
 			plotService.savePlot(basePlot);
