@@ -6,23 +6,17 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.hamcrest.collection.IsEmptyCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.entities.Production;
-import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
 import com.aegro.api.repository.ProductionRepository;
-import com.aegro.api.service.FarmService;
-import com.aegro.api.service.PlotService;
 import com.aegro.api.service.ProductionService;
 import com.aegro.api.service.ProductivityFarm;
 import com.aegro.api.service.ProductivityPlot;
-import com.aegro.api.service.ProductivityShared;
 
 /**
  * @author Yohan Silva
@@ -53,7 +47,15 @@ public class ProductionServiceImpl implements ProductionService {
 	public Production updateProduction(Long id, Production production) {
 		Production newProduction = productionRepository.getById(id);
 		newProduction.setAmount(production.getAmount());
-		return productionRepository.save(newProduction);		
+		productionRepository.save(newProduction);	
+		
+		Plot plot = newProduction.getPlot();
+		Farm farm = plot.getFarm();
+		
+		productivityFarm.updateFarmProductivity(farm);
+		productivityPlot.updatePlotProductivity(plot);
+		
+		return newProduction;
 	}
 
 	@Override
@@ -70,10 +72,14 @@ public class ProductionServiceImpl implements ProductionService {
 	@Override
 	public void removeProductionById(Long id) {	
 		
-		productivityFarm.updateFarmProductivityWhenDeleteProduction(id);
-		productivityPlot.updatePlotProductivityWhenDeleteProduction(id);
+		Production production = productionRepository.getById(id);
+		Plot plot = production.getPlot();
+		Farm farm = plot.getFarm();
 		
 		productionRepository.deleteById(id);	
+		
+		productivityFarm.updateFarmProductivity(farm);
+		productivityPlot.updatePlotProductivity(plot);
 	}
 	
 	@Override
@@ -82,11 +88,14 @@ public class ProductionServiceImpl implements ProductionService {
 		Plot plot = plotRepository.getById(idPlot);	
 		plot.getProdutions().add(production);
 		production.setPlot(plot);
-			
-		productivityPlot.updatePlotProductivityWhenCreateProduction(production, idPlot);
-		productivityFarm.updateFarmProductivityWhenCreateProduction(production, idPlot);
+
+		Farm farm = plot.getFarm();
+
+		productionRepository.save(production);	
 		
-		return productionRepository.save(production);	
+		productivityFarm.updateFarmProductivity(farm);
+		productivityPlot.updatePlotProductivity(plot);
+		return production;
 	}
 
 	

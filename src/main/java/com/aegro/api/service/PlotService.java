@@ -22,5 +22,6 @@ public interface PlotService {
 	Plot createPlotInFarmId(Plot plot, Long idFarm);
 	
 	List<Plot> plotListOfFarmId(Long idFarm);
+
 		
 }

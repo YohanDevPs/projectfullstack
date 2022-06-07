@@ -54,10 +54,13 @@ public class PlotServiceImpl implements PlotService{
 	
 	@Override
 	public void removePlotById(Long id) {	
+		plotRepository.getById(id);
 		
-		productivityFarm.updateFarmProductivityWhenDeletePlot(id);
-	
+		Farm farm = plotRepository.getById(id).getFarm();
+					
 		plotRepository.deleteById(id);	
+		
+		productivityFarm.updateFarmProductivity(farm);
 	}
 	
 	@Override
@@ -69,9 +72,11 @@ public class PlotServiceImpl implements PlotService{
 			
 		farm.getPlots().add(plot);
 		
-		productivityFarm.updateProductivityFarmWhenCreatePlot(plot, idFarm);
+		plotRepository.save(plot);		
+
+		productivityFarm.updateFarmProductivity(farm);
 	
-		return plotRepository.save(plot);		
+		return plot;
 	}
 	
 
