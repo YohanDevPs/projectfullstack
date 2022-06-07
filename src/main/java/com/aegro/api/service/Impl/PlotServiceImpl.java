@@ -15,9 +15,12 @@ import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
+import com.aegro.api.resources.exceptions.ListEmptyException;
 import com.aegro.api.service.PlotService;
 import com.aegro.api.service.ProductivityFarm;
 import com.aegro.api.service.ProductivityPlot;
+
+import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
 
 
 /**
@@ -84,20 +87,19 @@ public class PlotServiceImpl implements PlotService{
 	public List<Plot> plotListOfFarmId(Long idFarm) {
 		
 		List<Plot> plots = plotRepository.findAll();
-		plots.get(0);
 		
 		Plot plot = new Plot();
 		
 		List<Plot> newListPlot = new ArrayList<>();
-		
-		for(int i = 0; i < plots.size(); i++) {
-			if (plots.get(i).getFarm().getId() == idFarm) {
-				plot = plots.get(i);
-				newListPlot.add(plot);
+
+			for(int i = 0; i < plots.size(); i++) {
+				if (plots.get(i).getFarm().getId() == idFarm) {
+					plot = plots.get(i);
+					newListPlot.add(plot);
+				}
 			}
+			
+			return newListPlot;
 		}
-		
-		return newListPlot;
-	}
 
 }

@@ -103,7 +103,6 @@ public class ProductionServiceImpl implements ProductionService {
 	public List<Production> productionListByPlotId(Long idPlot) {
 		
 		List<Production> productions = productionRepository.findAll();
-		productions.get(0);
 		
 		Production production = new Production();
 		
@@ -114,8 +113,7 @@ public class ProductionServiceImpl implements ProductionService {
 				production = productions.get(i);
 				newListProduction.add(production);
 			}
-		}
-		
+		}	
 		return newListProduction;
 	}
 	
