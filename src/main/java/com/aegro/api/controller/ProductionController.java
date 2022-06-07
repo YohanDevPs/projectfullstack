@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aegro.api.entities.Plot;
 import com.aegro.api.entities.Production;
+import com.aegro.api.repository.ProductionRepository;
 import com.aegro.api.service.ProductionService;
 import com.aegro.api.service.ProductivityPlot;
 import com.aegro.api.service.Impl.ProductivityPlotImpl;
@@ -33,6 +35,9 @@ public class ProductionController {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private ProductionRepository productionRepository;
 
 	@Autowired
 	private ProductionService productionService;
@@ -77,12 +82,16 @@ public class ProductionController {
 
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateProduction(@PathVariable("id") Long id, @RequestBody Production production) {
-		productionService.getProductionById(id).map(baseProduction -> {
-			modelMapper.map(production, baseProduction);
-			productionService.saveProduction(baseProduction);
-			return Void.TYPE;
-		});
+	public ResponseEntity<Production> updateProduction(@PathVariable("id") Long id, @RequestBody Production production) {
+		
+		Production oldProduction = productionRepository.getById(id);
+		
+		if (oldProduction == null) {
+			return new ResponseEntity<Production>(HttpStatus.NOT_FOUND);
+		}
+	
+		productionService.updateProduction(id, production);
+		
+		return new ResponseEntity<Production>(HttpStatus.OK);
 	}
 }

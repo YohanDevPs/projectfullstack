@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
@@ -32,7 +33,7 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	@Autowired
 	private ProductionRepository productionRepository;
-	
+
 	@Autowired
 	private PlotRepository plotRepository;
 	
@@ -46,6 +47,13 @@ public class ProductionServiceImpl implements ProductionService {
 	@Override
 	public Production saveProduction(Production production) {
 		return productionRepository.save(production); 
+	}
+	
+	@Override
+	public Production updateProduction(Long id, Production production) {
+		Production newProduction = productionRepository.getById(id);
+		newProduction.setAmount(production.getAmount());
+		return productionRepository.save(newProduction);		
 	}
 
 	@Override

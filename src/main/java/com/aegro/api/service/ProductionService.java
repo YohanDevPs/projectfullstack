@@ -11,9 +11,6 @@ import com.aegro.api.entities.Production;
 
 public interface ProductionService {
 
-	
-	Production saveProduction(Production production);
-	
 	List<Production> productionList();
 	
 	Optional<Production> getProductionById(Long id);
@@ -23,5 +20,10 @@ public interface ProductionService {
 	Production createProductionInPlotId(Production production, Long idPlot);
 
 	List<Production> productionListByPlotId(Long idPlot);
+
+	Production saveProduction(Production production);
+	
+	Production updateProduction(Long id, Production production);
+
 }
 
