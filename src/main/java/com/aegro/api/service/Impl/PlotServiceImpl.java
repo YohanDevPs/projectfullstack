@@ -15,13 +15,8 @@ import com.aegro.api.entities.Farm;
 import com.aegro.api.entities.Plot;
 import com.aegro.api.repository.FarmRepository;
 import com.aegro.api.repository.PlotRepository;
-import com.aegro.api.resources.exceptions.ListEmptyException;
 import com.aegro.api.service.PlotService;
 import com.aegro.api.service.ProductivityFarm;
-import com.aegro.api.service.ProductivityPlot;
-
-import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
-
 
 /**
  * @author Yohan Silva
