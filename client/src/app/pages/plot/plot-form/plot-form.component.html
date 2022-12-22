@@ -1,0 +1,27 @@
+<div class="container-form">
+  <div class="p-3" >
+    <mat-card>
+      <h2>Talhão</h2>
+      <div class="row">
+        <div class="col-md-8">
+          <mat-form-field class="mat-form">
+            <mat-label>Nome</mat-label>
+            <input matInput [(ngModel)] = "plot.namePlot">
+          </mat-form-field>
+          <mat-form-field class="mat-form">
+            <mat-label>Área</mat-label>
+            <input matInput [(ngModel)] = "plot.plotAreaInHectare">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-mt-8 col-md-2 mb3">
+          <button class="button-mat" mat-stroked-button color="primary" (click)="salvarPlot()">Salvar</button>
+        </div>
+        <div class="col-md-2">
+          <button class="button-mat" mat-stroked-button color="warn" (click)="cancelar()">Cancelar</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

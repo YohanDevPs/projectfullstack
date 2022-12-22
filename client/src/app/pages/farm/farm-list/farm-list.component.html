@@ -1,0 +1,41 @@
+<div class="container-list">
+  <div class="p-3">
+    <mat-card>
+      <div class="top-info">
+        <h2>Fazendas</h2>
+        <button class="button-adicionarfazenda" (click)="addNewFarm()">+ Nova Fazenda</button>
+      </div>
+      <table mat-table [dataSource]="farms" class="mat-elevation-z8">
+
+        <ng-container  matColumnDef="home">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container class="Nome" matColumnDef="nameFarm">
+          <th mat-header-cell *matHeaderCellDef> Nome </th>
+          <td mat-cell *matCellDef="let element"> {{element.nameFarm}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button class="buttons-table" mat-icon-button="primary" (click)="addPlotInFarm(element)">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+            <button class="buttons-table" mat-icon-button="primary" (click)="warningDeleteFarm(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button class="buttons-table" mat-icon-button="primary" (click)="editFarm(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card>
+  </div>
+</div>

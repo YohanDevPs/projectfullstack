@@ -1,0 +1,115 @@
+.container{
+  max-width: 1080px;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+table{
+  margin-top: 80px;
+  width: 100%;
+  box-shadow: none;
+}
+
+#name-plot{
+  margin-top: 110px;
+  font-size: 27px;
+}
+
+.button-backpage{
+  transform: scale(1.2);
+}
+
+.button-backpage:hover{
+  right: 5px;
+}
+
+.teste{
+  display: inline-block;
+}
+
+.button-editarplot{
+  top: 30px;
+  position: absolute;
+  right: 50px;
+  padding: 5px 20px 0px 20px;
+	color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+	font-weight: bold;
+	font-size: 14px;
+	border: none;
+}
+
+.button-deletarplot{
+  top: 30px;
+  position: absolute;
+  right: 10px;
+  padding: 5px 10px 0px 10px;
+	color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+	font-weight: bold;
+	font-size: 14px;
+	border: none;
+  border-left: solid 2px rgb(210, 208, 208);
+}
+
+.block-topinformation{
+  border-bottom: solid 1px rgb(177, 177, 177);
+}
+
+.name-plot{
+  font-size: 27px;
+}
+
+.title-table{
+  right: 10px;
+  position: absolute;
+  left: 50px;
+  top: 150px;
+	font-size: 17px;
+	border: none;
+}
+
+.adicionar-producao{
+  top: 150px;
+  position: absolute;
+  right: 20px;
+  padding: 5px 30px 5px 20px;
+	background: rgb(10, 175, 37);
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	border: none;
+	transition: 0.1s all;
+}
+
+.adicionar-producao:hover {
+	background: rgb(8, 67, 3);
+}
+
+.name-productivity{
+  color: rgb(180, 180, 180);
+  padding: 0px 0px 0px 0px;
+  margin-left: 45px;
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+.buttons-table:hover{
+  background: rgb(189, 190, 188);
+  transition: 0.5s all;
+}
+
+.buttons-table{
+  float: right;
+}
+
+.quantitity-productivity{
+  margin-top: -9px;
+  padding: 0px 0px 0px 0px;
+  margin-left: 45px;
+  font-weight: normal;
+ }
+
+ .mat-elevation-z8 tr:hover {
+  background: rgb(234, 235, 233);
+  transition: 0.5s all;
+}
