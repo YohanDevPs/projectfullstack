@@ -1,4 +1,4 @@
-# Projeto - Fase Backend
+# Projeto
 
 ### Desafio:
 O projeto consiste na construção de uma aplicação cujo domínio é composto por fazendas que podem ter de 0 a N talhões
