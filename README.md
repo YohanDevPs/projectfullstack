@@ -1,6 +1,6 @@
 # Projeto
 
-### Desafio:
+### Objetivo:
 O projeto consiste na construção de uma aplicação cujo domínio é composto por fazendas que podem ter de 0 a N talhões
 (marcação de uma subárea da fazenda), cada. Os talhões devem conter um atributo numérico de área (em hectares) e deve
 ser possível fazer N registros de produção (em KG) para cada talhão. A aplicação deve ser capaz de calcular a produtividade
