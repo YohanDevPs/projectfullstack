@@ -32,7 +32,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 
 	@Override
 	public void updateFarmProductivity(Farm farm){
-		
 		try {
 			double productivity = getFarmProductivity(farm);
 			farm.setFarmProductivity(limitDecimalPlace(productivity));
@@ -44,7 +43,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	
 	@Override
 	public void updateFarmProductivityWhenUpdatePlot(Long idPlot,Plot newPlot) {
-		
 		Optional<Plot> oldPlot = plotRepository.findById(idPlot);
 		
 		double oldAreaOfPlot = oldPlot.get().getPlotAreaInHectare();
@@ -70,7 +68,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 
 	
 	public Double getFarmProductivity(Farm farm) {
-		
 		double productionFarm = getProductionFarmById(farm.getId());
 		double areaFarm = getTotalAreaByFarmId(farm.getId());
 		
@@ -84,7 +81,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	}
 	
 	public Double getProductionFarmById(Long idFarm) {
-		
 		List<Plot> allPlots = plotRepository.findAll();
 		
 		double sumProductionFarm = 0;
@@ -120,27 +116,11 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 		}
 		
 	}
-	
-	public Double converteNullToZero(Double value) {
-		
-		Object obj = value;
-		
-		if(obj != null) {
-		     double amount = Double.parseDouble(obj.toString());
-		     return amount;
-		}
-		else {
-		     double amountDefault = 0.0;
-		     return amountDefault; 		
-		}
-	}
 
 	public Double limitDecimalPlace(double productivityFarm) {
 		double formattedProductivity = (Math.round(productivityFarm * 100.0) / 100.0);
 		return formattedProductivity;
 	}
-
-
 }
 
 

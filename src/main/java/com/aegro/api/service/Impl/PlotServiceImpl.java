@@ -27,13 +27,11 @@ public class PlotServiceImpl implements PlotService{
 
 	@Autowired
 	private PlotRepository plotRepository;
-	
 	@Autowired
 	private FarmRepository farmRepository;
-
 	@Autowired
 	private ProductivityFarm productivityFarm;
-	
+
 	@Override
 	public Plot savePlot(Plot plot) {
 		return plotRepository.save(plot); 
@@ -53,25 +51,17 @@ public class PlotServiceImpl implements PlotService{
 	@Override
 	public void removePlotById(Long id) {	
 		plotRepository.getById(id);
-		
 		Farm farm = plotRepository.getById(id).getFarm();
-					
-		plotRepository.deleteById(id);	
-		
+		plotRepository.deleteById(id);
 		productivityFarm.updateFarmProductivity(farm);
 	}
 	
 	@Override
 	public Plot createPlotInFarmId(Plot plot, Long idFarm) {
-
 		Farm farm = farmRepository.getById(idFarm);
-		
 		plot.setFarm(farm);
-			
 		farm.getPlots().add(plot);
-		
-		plotRepository.save(plot);		
-
+		plotRepository.save(plot);
 		productivityFarm.updateFarmProductivity(farm);
 	
 		return plot;
@@ -80,11 +70,8 @@ public class PlotServiceImpl implements PlotService{
 
 	@Override
 	public List<Plot> plotListOfFarmId(Long idFarm) {
-		
 		List<Plot> plots = plotRepository.findAll();
-		
 		Plot plot = new Plot();
-		
 		List<Plot> newListPlot = new ArrayList<>();
 
 			for(int i = 0; i < plots.size(); i++) {
@@ -93,8 +80,6 @@ public class PlotServiceImpl implements PlotService{
 					newListPlot.add(plot);
 				}
 			}
-			
 			return newListPlot;
 		}
-
 }

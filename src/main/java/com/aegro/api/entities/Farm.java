@@ -33,8 +33,7 @@ public class Farm implements Serializable {
 	
 	@Column(unique = false)
 	private String nameFarm;
-	
-//	@JsonIgnore
+
 	@OneToMany(cascade=CascadeType.MERGE, mappedBy="farm", orphanRemoval=true)
 	private List<Plot> plots = new ArrayList<>();
 	
@@ -68,5 +67,4 @@ public class Farm implements Serializable {
 	public void setFarmProductivity(Double farmProductivity) {
 		this.farmProductivity = farmProductivity;
 	}
-
 }

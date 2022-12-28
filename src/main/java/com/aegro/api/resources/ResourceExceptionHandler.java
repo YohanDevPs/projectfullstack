@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
-
 	
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<StandartError> entityNotFound(EntityNotFoundException exception, HttpServletRequest request){

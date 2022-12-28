@@ -21,5 +21,4 @@ public interface ProductionRepository extends JpaRepository<Production, Long>{
 	Double totalProductionByPlot(Long id);
 
 	Production save(Optional<Production> newProduction);
-	
 }

@@ -18,5 +18,4 @@ public interface PlotRepository extends JpaRepository<Plot, Long> {
 			+ "FROM Plot "
 			+ "WHERE FARM_ID  = ?1")
 	Double totalAreaByFarmId(Long id);
-	
 }

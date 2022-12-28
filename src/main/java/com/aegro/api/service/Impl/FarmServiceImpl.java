@@ -21,7 +21,6 @@ import com.aegro.api.service.FarmService;
 @Service
 public class FarmServiceImpl implements FarmService {
 
-	
 	@Autowired
 	private FarmRepository farmRepository;
 	
@@ -47,5 +46,4 @@ public class FarmServiceImpl implements FarmService {
 	public void removeFarmById(Long id) {
 		farmRepository.deleteById(id);
 	}
-
 }
