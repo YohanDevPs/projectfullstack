@@ -69,11 +69,8 @@ public class PlotServiceImpl implements PlotService{
 	@Override
 	public List<Plot> plotListOfFarmId(Long idFarm) {
 		List<Plot> plots = plotRepository.findAll();
-<<<<<<< HEAD
+
 		Plot plot;
-=======
-		Plot plot = new Plot();
->>>>>>> ae8f500090ef496cef27bb11e4993218f51bd3ad
 		List<Plot> newListPlot = new ArrayList<>();
 
 			for(int i = 0; i < plots.size(); i++) {

@@ -69,10 +69,7 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 	public Double getProductionByPlotId(Long idPlot) {
 		return converteNullToZero(productionRepository.totalProductionByPlot(idPlot));		
 	}
-	
-<<<<<<< HEAD
-=======
-	
+
 	public Double getPlotProductivity(Plot plot) {
 		double productionPlot = getProductionByPlotId(plot.getIdPlot());
 		double areaPlot = plot.getPlotAreaInHectare();
@@ -85,8 +82,7 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 			return -1.0;
 		}		
 	}
-	
->>>>>>> ae8f500090ef496cef27bb11e4993218f51bd3ad
+
 	public Double limitDecimalPlace(double numberToFormat) {
 		double formatedNumber = (Math.round(numberToFormat * 100.0) / 100.0);
 		return formatedNumber;

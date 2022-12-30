@@ -111,10 +111,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 			double totalAreaByFarmId = 0.0;
 			return totalAreaByFarmId; 		
 		}
-<<<<<<< HEAD
-=======
-		
->>>>>>> ae8f500090ef496cef27bb11e4993218f51bd3ad
 	}
 
 	public Double limitDecimalPlace(double productivityFarm) {
