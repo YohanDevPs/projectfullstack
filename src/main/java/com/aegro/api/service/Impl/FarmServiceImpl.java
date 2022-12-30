@@ -20,11 +20,9 @@ import com.aegro.api.service.FarmService;
 
 @Service
 public class FarmServiceImpl implements FarmService {
-
 	
 	@Autowired
 	private FarmRepository farmRepository;
-	
 	
 	@Override
 	public Farm saveFarm(Farm farm) {
@@ -47,5 +45,4 @@ public class FarmServiceImpl implements FarmService {
 	public void removeFarmById(Long id) {
 		farmRepository.deleteById(id);
 	}
-
 }

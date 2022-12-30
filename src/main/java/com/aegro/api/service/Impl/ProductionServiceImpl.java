@@ -27,13 +27,10 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	@Autowired
 	private ProductionRepository productionRepository;
-
 	@Autowired
 	private PlotRepository plotRepository;
-	
 	@Autowired
 	private ProductivityPlot productivityPlot;
-	
 	@Autowired
 	private ProductivityFarm productivityFarm;
 	
@@ -70,8 +67,7 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 	
 	@Override
-	public void removeProductionById(Long id) {	
-		
+	public void removeProductionById(Long id) {
 		Production production = productionRepository.getById(id);
 		Plot plot = production.getPlot();
 		Farm farm = plot.getFarm();
@@ -84,7 +80,6 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	@Override
 	public Production createProductionInPlotId(Production production, Long idPlot) {
-		
 		Plot plot = plotRepository.getById(idPlot);	
 		plot.getProdutions().add(production);
 		production.setPlot(plot);
@@ -101,11 +96,8 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	@Override
 	public List<Production> productionListByPlotId(Long idPlot) {
-		
 		List<Production> productions = productionRepository.findAll();
-		
 		Production production = new Production();
-		
 		List<Production> newListProduction = new ArrayList<>();
 		
 		for(int i = 0; i < productions.size(); i++) {
@@ -116,5 +108,4 @@ public class ProductionServiceImpl implements ProductionService {
 		}	
 		return newListProduction;
 	}
-	
 }

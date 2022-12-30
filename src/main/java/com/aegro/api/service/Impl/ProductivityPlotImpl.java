@@ -17,13 +17,11 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 
 	@Autowired
 	private ProductionRepository productionRepository;
-	
 	@Autowired
 	private PlotRepository plotRepository;
 
 	@Override
 	public void updatePlotProductivity(Plot plot) {
-
 		double newPlotArea = plot.getPlotAreaInHectare();
 		double productionPlot = getProductionByPlotId(plot.getIdPlot());
 				
@@ -54,11 +52,9 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		} catch (ArithmeticException e) {
 			e.getCause();
 		}
-		
 	}
 	
 	public Double converteNullToZero(Double value) {
-		
 		Object obj = value;
 		
 		if(obj != null) {
@@ -70,31 +66,14 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		     return amountDefault; 		
 		}
 	}
-	
 
 	public Double getProductionByPlotId(Long idPlot) {
 		return converteNullToZero(productionRepository.totalProductionByPlot(idPlot));		
-	}
-	
-	
-	public Double getPlotProductivity(Plot plot) {
-		
-		double productionPlot = getProductionByPlotId(plot.getIdPlot());
-		double areaPlot = plot.getPlotAreaInHectare();
-		
-		try {
-			double newProductivity = limitDecimalPlace(productionPlot/areaPlot);
-			return newProductivity;
-		} catch (ArithmeticException e) {
-			e.getCause();
-			return -1.0;
-		}		
 	}
 	
 	public Double limitDecimalPlace(double numberToFormat) {
 		double formatedNumber = (Math.round(numberToFormat * 100.0) / 100.0);
 		return formatedNumber;
 	}
-	
 }
 

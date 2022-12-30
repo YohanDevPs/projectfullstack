@@ -23,10 +23,8 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 
 	@Autowired
 	private ProductionRepository productionRepository;
-
 	@Autowired
 	private PlotRepository plotRepository;
-	
 	@Autowired
 	private FarmRepository farmRepository;
 
@@ -44,7 +42,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	
 	@Override
 	public void updateFarmProductivityWhenUpdatePlot(Long idPlot,Plot newPlot) {
-		
 		Optional<Plot> oldPlot = plotRepository.findById(idPlot);
 		
 		double oldAreaOfPlot = oldPlot.get().getPlotAreaInHectare();
@@ -70,7 +67,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 
 	
 	public Double getFarmProductivity(Farm farm) {
-		
 		double productionFarm = getProductionFarmById(farm.getId());
 		double areaFarm = getTotalAreaByFarmId(farm.getId());
 		
@@ -84,7 +80,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	}
 	
 	public Double getProductionFarmById(Long idFarm) {
-		
 		List<Plot> allPlots = plotRepository.findAll();
 		
 		double sumProductionFarm = 0;
@@ -107,7 +102,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	}	
 	
 	public Double getTotalAreaByFarmId(Long idFarm) {
-		
 		Object obj = plotRepository.totalAreaByFarmId(idFarm);
 		
 		if(obj != null) {
@@ -118,29 +112,12 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 			double totalAreaByFarmId = 0.0;
 			return totalAreaByFarmId; 		
 		}
-		
-	}
-	
-	public Double converteNullToZero(Double value) {
-		
-		Object obj = value;
-		
-		if(obj != null) {
-		     double amount = Double.parseDouble(obj.toString());
-		     return amount;
-		}
-		else {
-		     double amountDefault = 0.0;
-		     return amountDefault; 		
-		}
 	}
 
 	public Double limitDecimalPlace(double productivityFarm) {
 		double formattedProductivity = (Math.round(productivityFarm * 100.0) / 100.0);
 		return formattedProductivity;
 	}
-
-
 }
 
 
