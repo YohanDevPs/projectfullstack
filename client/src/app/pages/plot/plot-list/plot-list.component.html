@@ -1,0 +1,63 @@
+<div class="container-list">
+<div class="p-3">
+  <mat-card>
+    <div class="block-topinformation">
+      <h2>
+        <button class="button-backpage" (click)="backPage()" mat-icon-button="primary">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+        <strong  class="name-farm"> {{ farm.nameFarm }} </strong>
+        <button class="button-editarfazenda" (click)="onEditFarm()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="button-deletarfazenda" (click)="onDeleteFarm(farm)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <h4 id="name-productivity"> Produtividade</h4>
+        <h2 id="quantitity-productivity">{{ farm.farmProductivity }} kg/ha</h2>
+      </h2>
+    </div>
+
+    <h3  class="title-table">Áreas da Fazenda</h3>
+    <button  class="button-adicionartalhao" (click)="addPlot()">+ Nova Área</button>
+
+    <table mat-table [dataSource]="plots" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="map">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon>map</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="namePlot">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element"> {{element.namePlot}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="plotAreaInHectare">
+        <th mat-header-cell *matHeaderCellDef> Área(ha)</th>
+        <td mat-cell *matCellDef="let element"> {{element.plotAreaInHectare}} ha</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button class="buttons-table" mat-icon-button="primary" (click)="onAddProduction(element)">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+          <button class="buttons-table" mat-icon-button="primary" (click)="warningDeletePlot(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button  class="buttons-table" mat-icon-button="primary" (click)="editPlot(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>
+</div>

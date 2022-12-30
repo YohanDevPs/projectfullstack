@@ -28,10 +28,8 @@ import com.aegro.api.service.FarmService;
 @RequestMapping("v1/farm")
 public class FarmController {
 
-	
 	@Autowired
 	private FarmService farmService;
-	
 	@Autowired
 	private ModelMapper modelMapper;
 	

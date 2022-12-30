@@ -1,0 +1,46 @@
+.container-list {
+  max-width: 1080px;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+table{
+  width: 100%;
+  box-shadow: none;
+}
+
+.top-info{
+  display: inline-block;
+}
+
+.button-adicionarfazenda{
+  top: 10px;
+  position: absolute;
+  right: 50px;
+  padding: 5px 15px 5px 15px;
+	background: rgb(10, 175, 37);
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	border: none;
+	transition: 0.1s all;
+}
+
+.button-adicionarfazenda:hover {
+	background: rgb(8, 67, 3);
+}
+
+.mat-elevation-z8 tr:hover {
+  background: rgb(234, 235, 233);
+  transition: 0.5s all;
+}
+
+.buttons-table{
+  float: right;
+}
+
+.buttons-table:hover{
+  background: rgb(189, 190, 188);
+  transition: 0.5s all;
+}
+

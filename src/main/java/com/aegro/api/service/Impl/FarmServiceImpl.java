@@ -20,7 +20,7 @@ import com.aegro.api.service.FarmService;
 
 @Service
 public class FarmServiceImpl implements FarmService {
-	
+
 	@Autowired
 	private FarmRepository farmRepository;
 	

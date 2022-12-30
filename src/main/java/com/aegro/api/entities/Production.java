@@ -63,5 +63,4 @@ public class Production implements Serializable{
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-
 }
