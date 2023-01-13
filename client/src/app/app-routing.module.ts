@@ -9,7 +9,7 @@ import { PlotListComponent } from './pages/plot/plot-list/plot-list.component';
 import { AreaLoginComponent } from './pages/login/area-login/area-login.component';
 
 const routes: Routes = [
-  { path: '', component: AreaLoginComponent },
+  { path: '', component: FarmListComponent },
 
   { path: 'farms', component: FarmListComponent },
   { path: 'farmform-edit/:idFarm', component: FarmFormComponent },
