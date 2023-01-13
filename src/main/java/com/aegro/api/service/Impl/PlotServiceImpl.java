@@ -1,7 +1,5 @@
 package com.aegro.api.service.Impl;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -71,7 +69,8 @@ public class PlotServiceImpl implements PlotService{
 	@Override
 	public List<Plot> plotListOfFarmId(Long idFarm) {
 		List<Plot> plots = plotRepository.findAll();
-		Plot plot = new Plot();
+
+		Plot plot;
 		List<Plot> newListPlot = new ArrayList<>();
 
 			for(int i = 0; i < plots.size(); i++) {

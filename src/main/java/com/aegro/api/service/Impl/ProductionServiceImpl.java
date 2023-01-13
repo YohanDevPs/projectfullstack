@@ -27,13 +27,10 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	@Autowired
 	private ProductionRepository productionRepository;
-
 	@Autowired
 	private PlotRepository plotRepository;
-	
 	@Autowired
 	private ProductivityPlot productivityPlot;
-	
 	@Autowired
 	private ProductivityFarm productivityFarm;
 	
@@ -111,5 +108,4 @@ public class ProductionServiceImpl implements ProductionService {
 		}	
 		return newListProduction;
 	}
-	
 }

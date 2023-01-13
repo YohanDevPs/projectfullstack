@@ -24,7 +24,6 @@ public class FarmServiceImpl implements FarmService {
 	@Autowired
 	private FarmRepository farmRepository;
 	
-	
 	@Override
 	public Farm saveFarm(Farm farm) {
 		farm.setFarmProductivity(0.0);		

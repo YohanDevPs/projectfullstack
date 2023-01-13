@@ -51,7 +51,6 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		} catch (ArithmeticException e) {
 			e.getCause();
 		}
-		
 	}
 	
 	public Double converteNullToZero(Double value) {
@@ -66,13 +65,11 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		     return amountDefault; 		
 		}
 	}
-	
 
 	public Double getProductionByPlotId(Long idPlot) {
 		return converteNullToZero(productionRepository.totalProductionByPlot(idPlot));		
 	}
-	
-	
+
 	public Double getPlotProductivity(Plot plot) {
 		double productionPlot = getProductionByPlotId(plot.getIdPlot());
 		double areaPlot = plot.getPlotAreaInHectare();
@@ -85,7 +82,7 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 			return -1.0;
 		}		
 	}
-	
+
 	public Double limitDecimalPlace(double numberToFormat) {
 		double formatedNumber = (Math.round(numberToFormat * 100.0) / 100.0);
 		return formatedNumber;

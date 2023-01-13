@@ -23,10 +23,8 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 
 	@Autowired
 	private ProductionRepository productionRepository;
-
 	@Autowired
 	private PlotRepository plotRepository;
-	
 	@Autowired
 	private FarmRepository farmRepository;
 
@@ -103,7 +101,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	}	
 	
 	public Double getTotalAreaByFarmId(Long idFarm) {
-		
 		Object obj = plotRepository.totalAreaByFarmId(idFarm);
 		
 		if(obj != null) {
@@ -114,7 +111,6 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 			double totalAreaByFarmId = 0.0;
 			return totalAreaByFarmId; 		
 		}
-		
 	}
 
 	public Double limitDecimalPlace(double productivityFarm) {
