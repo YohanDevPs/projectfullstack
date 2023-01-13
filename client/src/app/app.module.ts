@@ -29,6 +29,7 @@ import { DialogFilterNumbersComponent } from './pages/plot/dialog-filter-numbers
 import { DialogFiterNumberProductionComponent } from './pages/production/dialog-fiter-number-production/dialog-fiter-number-production.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { AreaLoginComponent } from './pages/login/area-login/area-login.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ToastrModule } from 'ngx-toastr';
     DialogDeleteProductionComponent,
     DialogFilterNumbersComponent,
     DialogFiterNumberProductionComponent,
+    AreaLoginComponent,
   ],
   imports: [
     BrowserModule,

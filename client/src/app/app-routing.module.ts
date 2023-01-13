@@ -6,9 +6,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { FarmListComponent } from './pages/farm/farm-list/farm-list.component';
 import { PlotFormComponent } from './pages/plot/plot-form/plot-form.component';
 import { PlotListComponent } from './pages/plot/plot-list/plot-list.component';
+import { AreaLoginComponent } from './pages/login/area-login/area-login.component';
 
 const routes: Routes = [
-  { path: '', component: FarmListComponent },
+  { path: '', component: AreaLoginComponent },
 
   { path: 'farms', component: FarmListComponent },
   { path: 'farmform-edit/:idFarm', component: FarmFormComponent },
