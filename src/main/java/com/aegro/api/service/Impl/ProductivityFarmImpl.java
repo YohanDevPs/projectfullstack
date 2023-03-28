@@ -31,11 +31,10 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 	@Override
 	public void updateFarmProductivity(Farm farm){
 		try {
-			double productivity = getFarmProductivity(farm);
-			farm.setFarmProductivity(limitDecimalPlace(productivity));
+			farm.setFarmProductivity(limitDecimalPlace(getFarmProductivity(farm)));
 			farmRepository.save(farm);	
 		}catch (ArithmeticException e) {
-			
+			e.getMessage();
 		}
 	}
 	
@@ -66,12 +65,10 @@ public class ProductivityFarmImpl implements ProductivityFarm{
 
 	
 	public Double getFarmProductivity(Farm farm) {
-		double productionFarm = getProductionFarmById(farm.getId());
-		double areaFarm = getTotalAreaByFarmId(farm.getId());
-		
 		try {
-			double newProductivity = limitDecimalPlace(productionFarm/areaFarm);
-			return newProductivity;
+			return limitDecimalPlace(
+					getProductionFarmById(farm.getId())/getTotalAreaByFarmId(farm.getId())
+			);
 		} catch (ArithmeticException e) {
 			e.getCause();
 			return -1.0;

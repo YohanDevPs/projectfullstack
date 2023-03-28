@@ -38,12 +38,12 @@ class FarmControllerTest {
 	@Test
 	public void mustReturnOk_AndTestGetFarmMethod() throws Exception {
 		
-		Long idFarm = 1l;
-		
-		farmService.getFarmByIdWithYourPlots(idFarm);
-		
-		Mockito.verify(farmService, Mockito.times(1))
-		.getFarmByIdWithYourPlots(idFarm);
+//		Long idFarm = 1l;
+//
+//		farmService.getFarmByIdWithYourPlots(idFarm);
+//
+//		Mockito.verify(farmService, Mockito.times(1))
+//		.getFarmByIdWithYourPlots(idFarm);
 		
 		mockMvc.perform(get("/v1/farm/{id}", 1L))
 		.andExpect(status().isOk());

@@ -15,6 +15,7 @@ import com.aegro.api.service.ProductivityPlot;
 @Service
 public class ProductivityPlotImpl implements ProductivityPlot {
 
+	public static final double AMOUNT_DEFAULT = 0.0;
 	@Autowired
 	private ProductionRepository productionRepository;
 	@Autowired
@@ -22,13 +23,11 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 
 	@Override
 	public void updatePlotProductivity(Plot plot) {
-		double newPlotArea = plot.getPlotAreaInHectare();
+		double plotArea = plot.getPlotAreaInHectare();
 		double productionPlot = getProductionByPlotId(plot.getIdPlot());
 				
 		try {
-			double newProductivityPlot = productionPlot/newPlotArea;
-			double newProductivityPlotFormated = limitDecimalPlace(newProductivityPlot);
-			plot.setPlotProductivity(newProductivityPlotFormated);
+			plot.setPlotProductivity(limitDecimalPlace(productionPlot/plotArea));
 			plotRepository.save(plot);
 		} catch (ArithmeticException e) {
 			e.getCause();
@@ -44,10 +43,8 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		Plot plot = plotRepository.getById(idPlot);
 		
 		try {
-			double newProductivityPlot = productionPlot/newPlotArea;
-			double newnewProductivityPlotFormated = limitDecimalPlace(newProductivityPlot);
-			newPlot.setPlotProductivity(newnewProductivityPlotFormated);	
-			plot.setPlotProductivity(newnewProductivityPlotFormated);
+			newPlot.setPlotProductivity(limitDecimalPlace( productionPlot/newPlotArea));
+			plot.setPlotProductivity(limitDecimalPlace( productionPlot/newPlotArea));
 		} catch (ArithmeticException e) {
 			e.getCause();
 		}
@@ -57,12 +54,10 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		Object obj = value;
 		
 		if(obj != null) {
-		     double amount = Double.parseDouble(obj.toString());
-		     return amount;
+		     return Double.parseDouble(obj.toString());
 		}
 		else {
-		     double amountDefault = 0.0;
-		     return amountDefault; 		
+		     return AMOUNT_DEFAULT;
 		}
 	}
 
@@ -70,22 +65,8 @@ public class ProductivityPlotImpl implements ProductivityPlot {
 		return converteNullToZero(productionRepository.totalProductionByPlot(idPlot));		
 	}
 
-	public Double getPlotProductivity(Plot plot) {
-		double productionPlot = getProductionByPlotId(plot.getIdPlot());
-		double areaPlot = plot.getPlotAreaInHectare();
-		
-		try {
-			double newProductivity = limitDecimalPlace(productionPlot/areaPlot);
-			return newProductivity;
-		} catch (ArithmeticException e) {
-			e.getCause();
-			return -1.0;
-		}		
-	}
-
 	public Double limitDecimalPlace(double numberToFormat) {
-		double formatedNumber = (Math.round(numberToFormat * 100.0) / 100.0);
-		return formatedNumber;
+		return (Math.round(numberToFormat * 100.0) / 100.0);
 	}
 }
 

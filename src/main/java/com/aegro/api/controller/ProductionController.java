@@ -83,7 +83,6 @@ public class ProductionController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("/{id}")
 	public ResponseEntity<Production> updateProduction(@PathVariable("id") Long id, @RequestBody Production production) {
-		
 		Production oldProduction = productionRepository.getById(id);
 		
 		if (oldProduction == null) {
@@ -91,7 +90,6 @@ public class ProductionController {
 		}
 	
 		productionService.updateProduction(id, production);
-		
 		return new ResponseEntity<Production>(HttpStatus.OK);
 	}
 }
